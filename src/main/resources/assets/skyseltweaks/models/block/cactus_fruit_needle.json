@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "skyseltweaks:block/cactus_fruit_needle"
+  }
+}

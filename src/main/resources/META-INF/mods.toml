@@ -1,0 +1,16 @@
+modLoader="javafml"
+loaderVersion="[40,)"
+license="All rights reserved"
+[[mods]] 
+modId="skyseltweaks"
+version="${file.jarVersion}"
+displayName="Sky Selection Tweaks"
+description='''
+A mod for Sky Selection Modpack
+'''
+[[dependencies.skyseltweaks]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.18.2,1.19)"
+    ordering="NONE"
+    side="BOTH"

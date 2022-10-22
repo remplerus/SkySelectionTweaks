@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "skyseltweaks:cactus_knife",
+    "skyseltweaks:diamond_knife",
+    "skyseltweaks:golden_knife",
+    "skyseltweaks:emerald_knife",
+    "skyseltweaks:iron_knife",
+    "skyseltweaks:netherite_knife",
+    "skyseltweaks:wooden_knife",
+    "skyseltweaks:stone_knife"
+  ]
+}

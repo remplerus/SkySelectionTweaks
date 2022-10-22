@@ -1,0 +1,6 @@
+{
+  "parent": "skyseltweaks:item/survivalist_rod",
+  "textures": {
+    "layer0": "skyseltweaks:item/survivalist_rod_cast"
+  }
+}

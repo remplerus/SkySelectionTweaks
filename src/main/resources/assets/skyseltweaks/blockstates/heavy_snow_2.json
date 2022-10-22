@@ -1,0 +1,12 @@
+{
+  "defaults": {
+    "model": "cube_all",
+    "textures": {
+    "all": "skyseltweaks:block/heavy_snow_2"
+  }
+  },
+  "variants": {
+    "normal": [{}],
+    "inventory": [{}]
+  }
+}

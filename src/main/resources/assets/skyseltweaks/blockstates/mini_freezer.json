@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": {"model": "skyseltweaks:block/mini_freezer" },
+    "facing=south": {"model": "skyseltweaks:block/mini_freezer", "y": 180 },
+    "facing=west":  {"model": "skyseltweaks:block/mini_freezer", "y": 270 },
+    "facing=east":  {"model": "skyseltweaks:block/mini_freezer", "y": 90 }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "parent": "item/handheld_rod",
+  "textures": {
+    "layer0": "skyseltweaks:item/survivalist_rod"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "cast": 1
+      },
+      "model": "skyseltweaks:item/survivalist_rod_cast"
+    }
+  ]
+}
