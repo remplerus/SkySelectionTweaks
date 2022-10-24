@@ -1,6 +1,7 @@
 package com.rempler.skyseltweaks.common.init;
 
 import com.rempler.skyseltweaks.SkySelTweaks;
+import com.rempler.skyseltweaks.common.item.InfusionStoneItem;
 import com.rempler.skyseltweaks.common.item.KnifeItem;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
@@ -29,8 +30,8 @@ public class SkySelItems {
     public static final RegistryObject<Item> DIAMOND_KNIFE = ITEMS.register("diamond_knife", () -> new KnifeItem(properties, 512, ""));
     public static final RegistryObject<Item> EMERALD_KNIFE = ITEMS.register("emerald_knife", () -> new KnifeItem(properties, 1024, ""));
     public static final RegistryObject<Item> NETHERITE_KNIFE = ITEMS.register("netherite_knife", () -> new KnifeItem(properties, 8192, ""));
-    public static final RegistryObject<Item> INFUSION_STONE = ITEMS.register("infusion_stone", () -> new Item(properties.durability(96)));
-    public static final RegistryObject<Item> RED_INFUSION_STONE = ITEMS.register("red_infusion_stone", () -> new Item(properties.durability(96)));
+    public static final RegistryObject<Item> INFUSION_STONE = ITEMS.register("infusion_stone", () -> new InfusionStoneItem(properties, 96));
+    public static final RegistryObject<Item> RED_INFUSION_STONE = ITEMS.register("red_infusion_stone", () -> new InfusionStoneItem(properties, 96));
 
     public static void register(IEventBus bus) {
         ITEMS.register(bus);
