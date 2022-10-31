@@ -14,11 +14,6 @@ public class IronFreezerBlockEntity extends BaseFreezerBlockEntity {
     }
 
     @Override
-    protected Component getDefaultName() {
-        return null;
-    }
-
-    @Override
     protected AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory) {
         return null;
     }

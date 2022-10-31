@@ -5,6 +5,7 @@ import com.rempler.skyseltweaks.common.init.SkySelBlocks;
 import com.rempler.skyseltweaks.common.init.SkySelItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -20,13 +21,13 @@ import java.util.Random;
 public class EventHandler {
     public static void onBlockRightClickEvent(PlayerInteractEvent.RightClickBlock event) {
         Player player = event.getPlayer();
-        if (!event.getWorld().isClientSide && player.tickCount > 10) {
+        if (!event.getWorld().isClientSide && event.getHand() == InteractionHand.MAIN_HAND) {
             ItemStack mainHand = player.getMainHandItem();
             ItemStack offHand = player.getOffhandItem();
             Level level = event.getWorld();
             BlockPos playerPos = player.blockPosition();
             Block block = level.getBlockState(event.getHitVec().getBlockPos()).getBlock();
-            if ((mainHand.is(SkySelTweaks.KNIFES) || mainHand.isEmpty()) && block.defaultBlockState().is(Blocks.CACTUS)) {
+            if ((mainHand.is(SkySelTweaks.KNIFES) || mainHand.isEmpty()) && offHand.isEmpty() && block.defaultBlockState().is(Blocks.CACTUS)) {
                 if (mainHand.is(Items.AIR)) {
                     player.hurt(DamageSource.CACTUS, 2f);
                 } else {

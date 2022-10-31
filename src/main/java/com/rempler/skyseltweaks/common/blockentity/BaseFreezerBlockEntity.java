@@ -1,5 +1,6 @@
 package com.rempler.skyseltweaks.common.blockentity;
 
+import com.rempler.skyseltweaks.SkySelTweaks;
 import com.rempler.skyseltweaks.common.recipe.FreezingRecipe;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.core.BlockPos;
@@ -7,6 +8,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
@@ -35,14 +37,16 @@ public class BaseFreezerBlockEntity extends BaseContainerBlockEntity implements 
     int freezingProgress;
     int freezingTotalTime;
     private final RecipeType<? extends FreezingRecipe> recipeType;
+    private final String name;
     protected BaseFreezerBlockEntity(BlockEntityType<?> pType, BlockPos pPos, BlockState pBlockState) {
         super(pType, pPos, pBlockState);
+        this.name = pType.getRegistryName().getPath();
         this.recipeType = null;
     }
 
     @Override
     protected Component getDefaultName() {
-        return null;
+        return new TranslatableComponent("container." + SkySelTweaks.MOD_ID + "." + name);
     }
 
     @Override

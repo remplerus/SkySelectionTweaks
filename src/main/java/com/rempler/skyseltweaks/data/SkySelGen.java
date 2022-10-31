@@ -1,4 +1,4 @@
-package com.rempler.skyseltweaks.common.data;
+package com.rempler.skyseltweaks.data;
 
 import com.rempler.skyseltweaks.SkySelTweaks;
 import net.minecraft.data.DataGenerator;

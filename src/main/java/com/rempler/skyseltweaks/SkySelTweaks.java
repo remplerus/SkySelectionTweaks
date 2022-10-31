@@ -3,6 +3,7 @@ package com.rempler.skyseltweaks;
 import com.mojang.logging.LogUtils;
 import com.rempler.skyseltweaks.client.ClientSetup;
 import com.rempler.skyseltweaks.common.events.EventHandler;
+import com.rempler.skyseltweaks.common.init.SkySelBEs;
 import com.rempler.skyseltweaks.common.init.SkySelBlocks;
 import com.rempler.skyseltweaks.common.init.SkySelItems;
 import net.minecraft.resources.ResourceLocation;
@@ -35,6 +36,7 @@ public class SkySelTweaks {
         LOGGER.info("Starting Sky Selection Tweaks");
         SkySelItems.register(EVENT_BUS);
         SkySelBlocks.register(EVENT_BUS);
+        SkySelBEs.register(EVENT_BUS);
 
         MinecraftForge.EVENT_BUS.addListener(EventHandler::onBlockRightClickEvent);
         EVENT_BUS.addListener(ClientSetup::setupClient);

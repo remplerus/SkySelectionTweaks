@@ -1,5 +1,7 @@
 package com.rempler.skyseltweaks.common.blockentity;
 
+import com.rempler.skyseltweaks.common.container.MiniFreezerContainer;
+import com.rempler.skyseltweaks.common.container.MiniFreezerMenu;
 import com.rempler.skyseltweaks.common.init.SkySelBEs;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -13,12 +15,7 @@ public class MiniFreezerBlockEntity extends BaseFreezerBlockEntity {
     }
 
     @Override
-    protected Component getDefaultName() {
-        return null;
-    }
-
-    @Override
     protected AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory) {
-        return null;
+        return new MiniFreezerMenu(pContainerId, pInventory, this);
     }
 }
