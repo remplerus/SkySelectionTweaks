@@ -6,6 +6,7 @@ import com.rempler.skyseltweaks.common.events.EventHandler;
 import com.rempler.skyseltweaks.common.init.SkySelBEs;
 import com.rempler.skyseltweaks.common.init.SkySelBlocks;
 import com.rempler.skyseltweaks.common.init.SkySelItems;
+import com.rempler.skyseltweaks.common.init.SkySelMenus;
 import com.rempler.skyseltweaks.common.init.SkySelRecipes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;

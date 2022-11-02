@@ -2,6 +2,7 @@ package com.rempler.skyseltweaks.client;
 
 import com.rempler.skyseltweaks.common.block.container.BaseFreezerScreen;
 import com.rempler.skyseltweaks.common.init.SkySelBlocks;
+import com.rempler.skyseltweaks.common.init.SkySelMenus;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
