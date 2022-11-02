@@ -6,6 +6,7 @@ import com.rempler.skyseltweaks.common.events.EventHandler;
 import com.rempler.skyseltweaks.common.init.SkySelBEs;
 import com.rempler.skyseltweaks.common.init.SkySelBlocks;
 import com.rempler.skyseltweaks.common.init.SkySelItems;
+import com.rempler.skyseltweaks.common.init.SkySelRecipes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
@@ -37,6 +38,8 @@ public class SkySelTweaks {
         SkySelItems.register(EVENT_BUS);
         SkySelBlocks.register(EVENT_BUS);
         SkySelBEs.register(EVENT_BUS);
+        SkySelMenus.register(EVENT_BUS);
+        SkySelRecipes.register(EVENT_BUS);
 
         MinecraftForge.EVENT_BUS.addListener(EventHandler::onBlockRightClickEvent);
         EVENT_BUS.addListener(ClientSetup::setupClient);

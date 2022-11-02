@@ -103,12 +103,8 @@ repositories {
 dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-40.1.80"
 
-    compileOnly(fg.deobf("mezz.jei:jei-${mc_version}-common-api:${jei_version}"))
-    compileOnly(fg.deobf("mezz.jei:jei-${mc_version}-forge-api:${jei_version}"))
-    runtimeOnly(fg.deobf("mezz.jei:jei-${mc_version}-forge:${jei_version}"))
-
+    implementation fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
     implementation fg.deobf("com.blamejared.crafttweaker:CraftTweaker-forge-${mc_version}:${crt_version}")
-    implementation "mcjty.theoneprobe:theoneprobe:${top_version}"
 }
 
 jar {

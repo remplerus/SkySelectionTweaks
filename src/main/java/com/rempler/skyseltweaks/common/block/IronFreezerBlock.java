@@ -1,6 +1,5 @@
 package com.rempler.skyseltweaks.common.block;
 
-import com.rempler.skyseltweaks.common.blockentity.IronFreezerBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;

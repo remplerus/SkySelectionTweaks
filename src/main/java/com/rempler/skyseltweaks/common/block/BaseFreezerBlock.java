@@ -1,9 +1,13 @@
 package com.rempler.skyseltweaks.common.block;
 
-import com.rempler.skyseltweaks.common.blockentity.BaseFreezerBlockEntity;
+import com.rempler.skyseltweaks.SkySelTweaks;
+import com.rempler.skyseltweaks.common.block.entity.BaseFreezerBlockEntity;
+import com.rempler.skyseltweaks.common.init.SkySelBEs;
 import com.rempler.skyseltweaks.common.init.SkySelBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -23,6 +27,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
@@ -50,7 +55,7 @@ public class BaseFreezerBlock extends BaseEntityBlock {
         if (pLevel.isClientSide) {
             return InteractionResult.SUCCESS;
         } else {
-            //this.openContainer(pLevel, pPos, pPlayer);
+            this.openContainer(pLevel, pPos, pPlayer);
             return InteractionResult.CONSUME;
         }
     }
@@ -58,20 +63,23 @@ public class BaseFreezerBlock extends BaseEntityBlock {
     protected void openContainer(Level pLevel, BlockPos pPos, Player pPlayer) {
         BlockEntity blockentity = pLevel.getBlockEntity(pPos);
         if (blockentity instanceof BaseFreezerBlockEntity) {
-            pPlayer.openMenu((MenuProvider)blockentity);
+            NetworkHooks.openGui((ServerPlayer) pPlayer, (BaseFreezerBlockEntity)blockentity, pPos);
+        } else {
+            SkySelTweaks.LOGGER.warn("No Menu found for "+ blockentity.toString() +"!");
         }
     }
 
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-        return null;
+        return new BaseFreezerBlockEntity(pPos, pState);
     }
 
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-        return super.getTicker(pLevel, pState, pBlockEntityType);
+        return createTickerHelper(pBlockEntityType, SkySelBEs.MINI_FREEZER.get(),
+                BaseFreezerBlockEntity::tick);
     }
 
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
