@@ -43,6 +43,5 @@ public class SkySelTweaks {
         SkySelRecipes.register(EVENT_BUS);
 
         MinecraftForge.EVENT_BUS.addListener(EventHandler::onBlockRightClickEvent);
-        EVENT_BUS.addListener(ClientSetup::setupClient);
     }
 }

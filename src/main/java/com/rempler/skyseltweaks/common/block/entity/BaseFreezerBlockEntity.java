@@ -1,6 +1,7 @@
 package com.rempler.skyseltweaks.common.block.entity;
 
 import com.rempler.skyseltweaks.SkySelTweaks;
+import com.rempler.skyseltweaks.common.block.BaseFreezerBlock;
 import com.rempler.skyseltweaks.common.block.container.BaseFreezerMenu;
 import com.rempler.skyseltweaks.common.init.SkySelBEs;
 import com.rempler.skyseltweaks.common.init.SkySelItems;
@@ -30,6 +31,9 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class BaseFreezerBlockEntity extends BlockEntity implements MenuProvider {
@@ -41,41 +45,39 @@ public class BaseFreezerBlockEntity extends BlockEntity implements MenuProvider 
     };
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
     protected final ContainerData data;
-    private int progress;
-    private static final int freezingTime = 200;
+    private int progress = 0;
+    private int freezingTime = FreezingRecipe.getFreezeTime();
 
     public BaseFreezerBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(SkySelBEs.MINI_FREEZER.get(), pPos, pBlockState);
         this.data = new ContainerData() {
             @Override
             public int get(int pIndex) {
-                if (pIndex == 0) {
-                    return BaseFreezerBlockEntity.this.progress;
-                }
-                return 0;
+                return switch (pIndex) {
+                    case 0 -> BaseFreezerBlockEntity.this.progress;
+                    case 1 -> BaseFreezerBlockEntity.this.freezingTime;
+                    default -> 0;
+                };
             }
 
             @Override
             public void set(int pIndex, int pValue) {
-                if (pIndex == 0) {
-                    BaseFreezerBlockEntity.this.progress = pValue;
+                switch (pIndex) {
+                    case 0 -> BaseFreezerBlockEntity.this.progress = pValue;
+                    case 1 -> BaseFreezerBlockEntity.this.freezingTime = pValue;
                 }
             }
 
             @Override
             public int getCount() {
-                return 1;
+                return 2;
             }
         };
     }
 
-    public static int getFreezingTime() {
-        return freezingTime;
-    }
-
     @Override
     public Component getDisplayName() {
-        return new TranslatableComponent("container." + SkySelTweaks.MOD_ID + "." + "test");
+        return new TranslatableComponent("container." + SkySelTweaks.MOD_ID + ".mini_freezer");
     }
 
     @Nullable
@@ -134,7 +136,7 @@ public class BaseFreezerBlockEntity extends BlockEntity implements MenuProvider 
         if (hasRecipe(blockEntity)) {
             blockEntity.progress++;
             setChanged(level, blockPos, blockState);
-            if (blockEntity.progress > blockEntity.getFreezingTime()) {
+            if (blockEntity.progress > blockEntity.freezingTime) {
                 craftItem(blockEntity);
             }
         } else {
@@ -183,5 +185,19 @@ public class BaseFreezerBlockEntity extends BlockEntity implements MenuProvider 
 
     private void resetProgress() {
         this.progress = 0;
+    }
+
+    public List<Component> getWailaInfo(BaseFreezerBlockEntity blockEntity) {
+        List<Component> info = new ArrayList<>();
+        info.add(new TranslatableComponent("waila.freezer.progress", new DecimalFormat("#%").format(blockEntity.getProgress()* 100L /blockEntity.getFreezingTime())));
+        return info;
+    }
+
+    public int getProgress() {
+        return this.progress;
+    }
+
+    public int getFreezingTime() {
+        return this.freezingTime;
     }
 }

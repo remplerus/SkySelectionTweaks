@@ -5,6 +5,8 @@
   "block.skyseltweaks.heavy_snow_2": "Heavy Snow",
   "block.skyseltweaks.mini_freezer": "Mini Freezer",
   "block.skyseltweaks.iron_freezer": "Iron Freezer",
+  "category.skyseltweaks.freezing": "Freezing",
+  "container.skyseltweaks.mini_freezer": "Mini Freezer",
   "item.skyseltweaks.cactus_needle": "Cactus Needle",
   "item.skyseltweaks.cactus_knife": "Cactus Knife",
   "item.skyseltweaks.wooden_knife": "Wooden Knife",
@@ -24,5 +26,6 @@
   "item.skyseltweaks.heavy_snowball": "Heavy Snowball",
   "item.skyseltweaks.heavy_explosive_snowball": "Heavy Explosive Snowball",
   "item.skyseltweaks.mini_freezer": "Mini Freezer",
-  "item.skyseltweaks.iron_freezer": "Iron Freezer"
+  "item.skyseltweaks.iron_freezer": "Iron Freezer",
+  "waila.freezer.progress": "Progress: %d"
 }

@@ -4,21 +4,30 @@ import com.rempler.skyseltweaks.SkySelTweaks;
 import com.rempler.skyseltweaks.common.block.entity.BaseFreezerBlockEntity;
 import com.rempler.skyseltweaks.common.init.SkySelBEs;
 import com.rempler.skyseltweaks.common.init.SkySelBlocks;
+import com.rempler.skyseltweaks.compat.top.TOPCompat;
+import mcjty.theoneprobe.api.IProbeHitData;
+import mcjty.theoneprobe.api.IProbeInfo;
+import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -27,12 +36,30 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 @SuppressWarnings("deprecation")
-public class BaseFreezerBlock extends BaseEntityBlock {
+public class BaseFreezerBlock extends BaseEntityBlock implements TOPCompat.ITOPInfoProvider {
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
+    private static final VoxelShape SHAPE = Block.box(1,0,1,15,16,15);
+
+    @Override
+    public void addProbeInfo(ProbeMode mode, IProbeInfo info, Player player, Level level, BlockState state, IProbeHitData data) {
+        BaseFreezerBlockEntity blockEntity = (BaseFreezerBlockEntity) level.getBlockEntity(data.getPos());
+        if (blockEntity == null) {
+            return;
+        }
+        List<Component> infoList = blockEntity.getWailaInfo(blockEntity);
+        for (Component tooltip : infoList) {
+            info.text(tooltip);
+        }
+    }
+
     public enum FreezerModelType implements StringRepresentable {
         MINI,
         LARGE_LOWER,
@@ -48,6 +75,19 @@ public class BaseFreezerBlock extends BaseEntityBlock {
     public BaseFreezerBlock(Properties pProperties) {
         super(pProperties);
         this.defaultBlockState().setValue(FACING, Direction.NORTH);
+    }
+
+    @Override
+    public void playerDestroy(Level pLevel, Player pPlayer, BlockPos pPos, BlockState pState, @Nullable BlockEntity pBlockEntity, ItemStack pTool) {
+        super.playerDestroy(pLevel, pPlayer, pPos, pState, pBlockEntity, pTool);
+        if (!pLevel.isClientSide && pBlockEntity instanceof BaseFreezerBlockEntity blockEntity) {
+            blockEntity.dropContent();
+        }
+    }
+
+    @Override
+    public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+        return SHAPE;
     }
 
     @Override
@@ -82,10 +122,22 @@ public class BaseFreezerBlock extends BaseEntityBlock {
                 BaseFreezerBlockEntity::tick);
     }
 
+    @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
         return this.defaultBlockState().setValue(FACING, pContext.getHorizontalDirection().getOpposite());
     }
 
+    @Override
+    public BlockState rotate(BlockState pState, Rotation pRotation) {
+        return pState.setValue(FACING, pRotation.rotate(pState.getValue(FACING)));
+    }
+
+    @Override
+    public BlockState mirror(BlockState pState, Mirror pMirror) {
+        return pState.rotate(pMirror.getRotation(pState.getValue(FACING)));
+    }
+
+    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
         pBuilder.add(FACING, MODEL_TYPE);
     }
@@ -103,9 +155,9 @@ public class BaseFreezerBlock extends BaseEntityBlock {
         else if (stateAbove.getBlock() == SkySelBlocks.IRON_FREEZER.get() && stateAbove.getValue(MODEL_TYPE) == FreezerModelType.MINI) {
             pLevel.setBlock(posAbove, stateAbove.setValue(MODEL_TYPE, FreezerModelType.LARGE_LOWER).setValue(FACING, pState.getValue(FACING)), 3);
             return pState.setValue(MODEL_TYPE, FreezerModelType.LARGE_UPPER);
+        } else {
+            return pState.setValue(MODEL_TYPE, FreezerModelType.MINI);
         }
-
-        return super.updateShape(pState, pDirection, pNeighborState, pLevel, pCurrentPos, pNeighborPos);
     }
 
     @Override

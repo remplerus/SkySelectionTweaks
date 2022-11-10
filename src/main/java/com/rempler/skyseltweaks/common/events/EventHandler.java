@@ -30,42 +30,35 @@ import java.util.Random;
 public class EventHandler {
     @SubscribeEvent
     public static void registerRecipeTypes(final RegistryEvent.Register<RecipeSerializer<?>> event) {
-        RecipeType.register(FreezingRecipe.Type.ID);
-        //Registry.register(Registry.RECIPE_TYPE, FreezingRecipe.Type.ID, FreezingRecipe.Serializer.INSTANCE);
+        //RecipeType.register(FreezingRecipe.Type.ID);
+        Registry.register(Registry.RECIPE_TYPE, FreezingRecipe.Type.ID, FreezingRecipe.Type.INSTANCE);
     }
 
 
     public static void onBlockRightClickEvent(PlayerInteractEvent.RightClickBlock event) {
         Player player = event.getPlayer();
-        if (!event.getWorld().isClientSide && event.getHand() == InteractionHand.MAIN_HAND) {
-            ItemStack mainHand = player.getMainHandItem();
-            ItemStack offHand = player.getOffhandItem();
+        ItemStack mainHand = player.getMainHandItem();
+        ItemStack offHand = player.getOffhandItem();
+        if (!event.getWorld().isClientSide && event.getHand() == InteractionHand.MAIN_HAND && player.isShiftKeyDown() && mainHand.isEmpty() && offHand.isEmpty()) {
             Level level = event.getWorld();
             BlockPos playerPos = player.blockPosition();
             Block block = level.getBlockState(event.getHitVec().getBlockPos()).getBlock();
-            if ((mainHand.is(SkySelTweaks.KNIFES) || mainHand.isEmpty()) && offHand.isEmpty() && block.defaultBlockState().is(Blocks.CACTUS)) {
-                if (mainHand.is(Items.AIR)) {
-                    player.hurt(DamageSource.CACTUS, 2f);
-                } else {
-                    mainHand.getItem().getDefaultInstance().hurtAndBreak(1, player, (player1 ->
-                            player1.broadcastBreakEvent(event.getHand() == InteractionHand.MAIN_HAND ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND)));
-                }
-                if (new Random().nextInt(0, 100) <= 50) {
-                    level.addFreshEntity(new ItemEntity(level, playerPos.getX() + 0.5, playerPos.getY() + 1, playerPos.getZ() + 0.5, SkySelItems.CACTUS_NEEDLE.get().getDefaultInstance()));
-                }
+            if (block.defaultBlockState().is(Blocks.CACTUS)) {
+                level.addFreshEntity(new ItemEntity(level, playerPos.getX(), playerPos.getY() + 1, playerPos.getZ(), SkySelItems.CACTUS_NEEDLE.get().getDefaultInstance()));
+                player.hurt(DamageSource.CACTUS, 2f);
             }
-            if (mainHand.is(SkySelTweaks.INFUSION_STONES) && offHand.is(SkySelItems.CACTUS_FRUIT.get())
-                    && block.defaultBlockState().is(SkySelBlocks.CACTUS_FRUIT_NEEDLE.get())
-                    && offHand.getCount() >= 8) {
-                level.setBlock(event.getHitVec().getBlockPos(), Blocks.AIR.defaultBlockState(), 3);
-                mainHand.getItem().getDefaultInstance().hurtAndBreak(1, player, (player1 ->
-                        player1.broadcastBreakEvent(event.getHand() == InteractionHand.MAIN_HAND ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND)));
-                offHand.getItem().getDefaultInstance().shrink(8);
-                level.addFreshEntity(new ItemEntity(level, playerPos.getX() + 0.5, playerPos.getY() + 1, playerPos.getZ() + 0.5, Items.DIRT.getDefaultInstance()));
+            if (mainHand.isEmpty() && block.defaultBlockState().is(Blocks.SNOW)) {
             }
-
-            //if (mainHand.isEmpty() && block.defaultBlockState().is(Blocks.SNOW)) {
-            //}
         }
+        //if (mainHand.is(SkySelTweaks.INFUSION_STONES) && offHand.is(SkySelItems.CACTUS_FRUIT.get())
+        //        && block.defaultBlockState().is(SkySelBlocks.CACTUS_FRUIT_NEEDLE.get())
+        //        && offHand.getCount() >= 8) {
+        //    level.setBlock(event.getHitVec().getBlockPos(), Blocks.AIR.defaultBlockState(), 3);
+        //    mainHand.getItem().getDefaultInstance().hurtAndBreak(1, player, (player1 ->
+        //            player1.broadcastBreakEvent(event.getHand() == InteractionHand.MAIN_HAND ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND)));
+        //    offHand.getItem().getDefaultInstance().shrink(8);
+        //    level.addFreshEntity(new ItemEntity(level, playerPos.getX(), playerPos.getY() + 1, playerPos.getZ(), Items.DIRT.getDefaultInstance()));
+        //}
+
     }
 }

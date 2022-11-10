@@ -19,6 +19,7 @@ public class SkySelItems {
     public static final RegistryObject<Item> MINI_FREEZER = ITEMS.register("mini_freezer", () -> new BlockItem(SkySelBlocks.MINI_FREEZER.get(), properties));
     public static final RegistryObject<Item> IRON_FREEZER = ITEMS.register("iron_freezer", () -> new BlockItem(SkySelBlocks.IRON_FREEZER.get(), properties));
     public static final RegistryObject<Item> HEAVY_SNOW = ITEMS.register("heavy_snow", () -> new BlockItem(SkySelBlocks.HEAVY_SNOW.get(), properties));
+    public static final RegistryObject<Item> HEAVY_SNOWBALL = ITEMS.register("heavy_snowball", () -> new Item(properties));
     public static final RegistryObject<Item> CACTUS_FRUIT = ITEMS.register("cactus_fruit", () -> new Item(new Item.Properties().tab(SkySelTweaks.tab).food(
             new FoodProperties.Builder().nutrition(4).saturationMod(0.6f).alwaysEat().fast().build())));
     public static final RegistryObject<Item> CACTUS_NEEDLE = ITEMS.register("cactus_needle", () -> new Item(properties));

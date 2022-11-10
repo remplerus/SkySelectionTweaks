@@ -7,30 +7,37 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
-import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
-public class FreezingRecipe implements Recipe<Container> {
+public class FreezingRecipe implements Recipe<SimpleContainer> {
     private final ResourceLocation id;
     private final ItemStack result;
     private final NonNullList<Ingredient> recipeItems;
+    private static int freezeTime = 200;
 
-    public FreezingRecipe(ResourceLocation id, ItemStack result, NonNullList<Ingredient> recipeItems) {
+    public FreezingRecipe(ResourceLocation id, ItemStack result, NonNullList<Ingredient> recipeItems, int freezeTime) {
         this.id = id;
         this.result = result;
         this.recipeItems = recipeItems;
+        FreezingRecipe.freezeTime = freezeTime;
     }
 
     @Override
-    public boolean matches(Container pContainer, Level pLevel) {
+    public boolean matches(SimpleContainer pContainer, Level pLevel) {
         return recipeItems.get(0).test(pContainer.getItem(0));
     }
 
     @Override
-    public ItemStack assemble(Container pContainer) {
+    public NonNullList<Ingredient> getIngredients() {
+        return recipeItems;
+    }
+
+    @Override
+    public ItemStack assemble(SimpleContainer pContainer) {
         return result;
     }
 
@@ -42,6 +49,10 @@ public class FreezingRecipe implements Recipe<Container> {
     @Override
     public ItemStack getResultItem() {
         return result.copy();
+    }
+
+    public static int getFreezeTime() {
+        return freezeTime;
     }
 
     @Override
@@ -67,8 +78,7 @@ public class FreezingRecipe implements Recipe<Container> {
 
     public static class Serializer implements RecipeSerializer<FreezingRecipe> {
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID =
-                new ResourceLocation(SkySelTweaks.MOD_ID,"freezing");
+        public static final ResourceLocation ID = new ResourceLocation(SkySelTweaks.MOD_ID,"freezing");
 
         @Override
         public FreezingRecipe fromJson(ResourceLocation id, JsonObject json) {
@@ -81,19 +91,20 @@ public class FreezingRecipe implements Recipe<Container> {
                 inputs.set(i, Ingredient.fromJson(ingredients.get(i)));
             }
 
-            return new FreezingRecipe(id, output, inputs);
+            int freezeTime = GsonHelper.getAsInt(json, "freezeTime", 200);
+
+            return new FreezingRecipe(id, output, inputs, freezeTime);
         }
 
         @Override
         public FreezingRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buf) {
             NonNullList<Ingredient> inputs = NonNullList.withSize(buf.readInt(), Ingredient.EMPTY);
 
-            for (int i = 0; i < inputs.size(); i++) {
-                inputs.set(i, Ingredient.fromNetwork(buf));
-            }
+            inputs.replaceAll(ignored -> Ingredient.fromNetwork(buf));
 
             ItemStack output = buf.readItem();
-            return new FreezingRecipe(id, output, inputs);
+            int freezeTime = buf.readVarInt();
+            return new FreezingRecipe(id, output, inputs, freezeTime);
         }
 
         @Override

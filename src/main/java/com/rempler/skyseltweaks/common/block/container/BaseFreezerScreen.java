@@ -11,7 +11,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 public class BaseFreezerScreen extends AbstractContainerScreen<BaseFreezerMenu> {
     private static final ResourceLocation TEXTURE = new ResourceLocation(SkySelTweaks.MOD_ID,
-            "textures/gui/freezer_gui.png");
+            "textures/gui/mini_freezer.png");
     public BaseFreezerScreen(BaseFreezerMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
     }
@@ -27,7 +27,7 @@ public class BaseFreezerScreen extends AbstractContainerScreen<BaseFreezerMenu> 
         this.blit(pPoseStack, x, y, 0, 0, imageWidth, imageHeight);
 
         if (menu.isCrafting()) {
-            this.blit(pPoseStack, x + 102, y + 41, 176, 0, 8, menu.getScaledProgress());
+            this.blit(pPoseStack, x + 74, y + 37, 176, 0, menu.getScaledProgress(), 24);
         }
     }
 

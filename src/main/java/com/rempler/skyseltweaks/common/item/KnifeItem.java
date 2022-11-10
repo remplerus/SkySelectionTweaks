@@ -11,7 +11,7 @@ import net.minecraft.world.item.context.UseOnContext;
 public class KnifeItem extends DiggerItem {
     private final String special;
     public KnifeItem(Properties pProperties, int durability, String special) {
-        super(0f, 0f, Tiers.WOOD, BlockTags.create(new ResourceLocation(SkySelTweaks.MOD_ID, "cactus")), pProperties.durability(durability));
+        super(-1f, -2f, Tiers.WOOD, BlockTags.create(new ResourceLocation(SkySelTweaks.MOD_ID, "knifes")), pProperties.durability(durability));
         this.special = special;
     }
 

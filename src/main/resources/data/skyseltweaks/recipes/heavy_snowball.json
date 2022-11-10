@@ -1,0 +1,12 @@
+{
+  "type": "skyseltweaks:freezing",
+  "ingredients": [
+    {
+      "item": "minecraft:snowball"
+    }
+  ],
+  "output": {
+    "item": "skyseltweaks:heavy_snowball"
+  },
+  "freezeTime": 500
+}

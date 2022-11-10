@@ -19,7 +19,7 @@ public class BaseFreezerMenu extends AbstractContainerMenu {
     private final ContainerData data;
 
     public BaseFreezerMenu(int pContainerId, Inventory pInventory, FriendlyByteBuf buf) {
-        this(pContainerId, pInventory, pInventory.player.level.getBlockEntity(buf.readBlockPos()), new SimpleContainerData(1));
+        this(pContainerId, pInventory, pInventory.player.level.getBlockEntity(buf.readBlockPos()), new SimpleContainerData(2));
     }
 
     public BaseFreezerMenu(int pContainerId, Inventory pInventory, BlockEntity container, ContainerData data) {
@@ -33,8 +33,8 @@ public class BaseFreezerMenu extends AbstractContainerMenu {
         addPlayerHotbar(pInventory);
 
         this.blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> {
-            this.addSlot(new SlotItemHandler(handler, 0, 60, 40));
-            this.addSlot(new SkySelResultSlot(handler, 1, 60, 60));
+            this.addSlot(new SlotItemHandler(handler, 0, 51,  36));
+            this.addSlot(new SkySelResultSlot(handler, 1, 106, 36));
         });
 
         addDataSlots(data);
@@ -47,7 +47,7 @@ public class BaseFreezerMenu extends AbstractContainerMenu {
     public int getScaledProgress() {
         int progress = this.data.get(0);
         int progressArrowSize = 26;
-        int maxProgress = BaseFreezerBlockEntity.getFreezingTime();
+        int maxProgress = this.data.get(1);
 
         return maxProgress != 0 && progress != 0 ? progress * progressArrowSize / maxProgress : 0;
     }
@@ -100,14 +100,14 @@ public class BaseFreezerMenu extends AbstractContainerMenu {
     private void addPlayerInventory(Inventory inv) {
         for (int i = 0; i < 3; i++) {
             for (int l = 0; l < 9; l++) {
-                this.addSlot(new Slot(inv, l+i*9+9, 8+l*18, 86+i*18));
+                this.addSlot(new Slot(inv, l+i*9+9, 8+l*18, 84+i*18));
             }
         }
     }
 
     private void addPlayerHotbar(Inventory inventory) {
         for (int i = 0; i < 9; i++) {
-            this.addSlot(new Slot(inventory, i, 8+i*18, 144));
+            this.addSlot(new Slot(inventory, i, 8+i*18, 142));
         }
     }
 }

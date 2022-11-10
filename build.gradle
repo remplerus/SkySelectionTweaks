@@ -93,18 +93,22 @@ repositories {
     maven {
         name = "Progwml6 maven"
         url = "https://dvs1.progwml6.com/files/maven/"
-    }
-    maven {
-        name = "ModMaven"
-        url = "https://modmaven.dev"
+        content {
+            includeGroup 'mezz.jei'
+        }
     }
     maven {
         url = 'https://maven.blamejared.com'
         name = 'BlameJared Maven'
+        content {
+            includeGroup 'com.blamejared.crafttweaker'
+        }
     }
     maven {
-        url "https://maven.k-4u.nl"
-        name "McJty"
+        url = "https://cursemaven.com"
+        content {
+            includeGroup 'curse.maven'
+        }
     }
 }
 
@@ -113,6 +117,9 @@ dependencies {
 
     implementation fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
     implementation fg.deobf("com.blamejared.crafttweaker:CraftTweaker-forge-${mc_version}:${crt_version}")
+    implementation fg.deobf("curse.maven:theoneprobe-245211:${top_version}")
+    compileOnly fg.deobf("curse.maven:jade-api-324717:${jade_version_api}")
+    runtimeOnly fg.deobf("curse.maven:jade-324717:${jade_version}")
 }
 
 jar {
