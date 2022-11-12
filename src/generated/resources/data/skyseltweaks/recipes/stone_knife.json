@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "i ",
+    " s"
+  ],
+  "key": {
+    "i": {
+      "tag": "forge:stone"
+    },
+    "s": {
+      "tag": "forge:rods/wooden"
+    }
+  },
+  "result": {
+    "item": "skyseltweaks:stone_knife"
+  }
+}

@@ -9,7 +9,7 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 
 public class SkySelItemTagGen extends ItemTagsProvider {
     public SkySelItemTagGen(DataGenerator generator, ExistingFileHelper existingFileHelper) {
-        super(generator, new BlockTagsProvider(generator, SkySelTweaks.MOD_ID, existingFileHelper), SkySelTweaks.MOD_ID, existingFileHelper);
+        super(generator, new SkySelBlockTagGen(generator, existingFileHelper), SkySelTweaks.MOD_ID, existingFileHelper);
     }
 
     @Override

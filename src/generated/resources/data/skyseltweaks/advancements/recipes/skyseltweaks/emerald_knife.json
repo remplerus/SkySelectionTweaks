@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "skyseltweaks:emerald_knife"
+    ]
+  },
+  "criteria": {
+    "has_gems/emerald": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:gems/emerald"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "skyseltweaks:emerald_knife"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_gems/emerald",
+      "has_the_recipe"
+    ]
+  ]
+}

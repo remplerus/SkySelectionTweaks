@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "skyseltweaks:heavy_snowball"
+    },
+    {
+      "item": "skyseltweaks:heavy_snowball"
+    },
+    {
+      "item": "skyseltweaks:heavy_snowball"
+    },
+    {
+      "item": "skyseltweaks:heavy_snowball"
+    }
+  ],
+  "result": {
+    "item": "skyseltweaks:heavy_snow"
+  }
+}

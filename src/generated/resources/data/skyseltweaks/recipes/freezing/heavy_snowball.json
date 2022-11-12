@@ -6,7 +6,7 @@
     }
   ],
   "output": {
-    "item": "skyseltweaks:heavy_snowball"
-  },
-  "freezeTime": 500
+    "item": "skyseltweaks:heavy_snowball",
+    "freezeTime": 200
+  }
 }

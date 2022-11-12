@@ -14,6 +14,9 @@ public class SkySelGen {
         DataGenerator generator = event.getGenerator();
         if (event.includeServer()) {
             generator.addProvider(new SkySelItemTagGen(generator, event.getExistingFileHelper()));
+            generator.addProvider(new SkySelBlockTagGen(generator, event.getExistingFileHelper()));
+            generator.addProvider(new SkySelRecipeGen(generator));
+            generator.addProvider(new SkySelLootTablesGen(generator));
         }
     }
 }

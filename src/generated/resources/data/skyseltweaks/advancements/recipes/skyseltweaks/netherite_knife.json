@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "skyseltweaks:netherite_knife"
+    ]
+  },
+  "criteria": {
+    "has_ingots/netherite": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:ingots/netherite"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "skyseltweaks:netherite_knife"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_ingots/netherite",
+      "has_the_recipe"
+    ]
+  ]
+}

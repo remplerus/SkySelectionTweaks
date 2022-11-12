@@ -15,7 +15,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class SkySelBlocks {
-    private static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, SkySelTweaks.MOD_ID);
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, SkySelTweaks.MOD_ID);
     public static final RegistryObject<FlowerBlock> CACTUS_FRUIT_NEEDLE = BLOCKS.register("cactus_fruit_needle", () ->
             new FlowerBlock(MobEffects.MOVEMENT_SPEED, 0, BlockBehaviour.Properties.of(Material.PLANT).noCollission().instabreak().sound(SoundType.GRASS)));
     public static final RegistryObject<BaseFreezerBlock> MINI_FREEZER = BLOCKS.register("mini_freezer", () ->
