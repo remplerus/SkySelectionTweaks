@@ -12,7 +12,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
@@ -25,8 +24,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -46,7 +47,7 @@ import java.util.List;
 @SuppressWarnings("deprecation")
 public class BaseFreezerBlock extends BaseEntityBlock implements TOPCompat.ITOPInfoProvider {
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
-    private static final VoxelShape SHAPE = Block.box(1,0,1,15,16,15);
+    private static final VoxelShape SHAPE = Block.box(2,0,2,14,16,14);
 
     @Override
     public void addProbeInfo(ProbeMode mode, IProbeInfo info, Player player, Level level, BlockState state, IProbeHitData data) {
@@ -54,9 +55,19 @@ public class BaseFreezerBlock extends BaseEntityBlock implements TOPCompat.ITOPI
         if (blockEntity == null) {
             return;
         }
-        List<Component> infoList = blockEntity.getWailaInfo(blockEntity);
-        for (Component tooltip : infoList) {
-            info.text(tooltip);
+        if (!blockEntity.itemHandler.getStackInSlot(0).is(ItemStack.EMPTY.getItem())) {
+            ItemStack slot0 = blockEntity.itemHandler.getStackInSlot(0);
+            info.text(slot0.getCount() + "x " + new TranslatableComponent(slot0.getDescriptionId()).getString());
+        }
+        if (!blockEntity.itemHandler.getStackInSlot(1).is(ItemStack.EMPTY.getItem())) {
+            ItemStack slot1 = blockEntity.itemHandler.getStackInSlot(1);
+            info.text(slot1.getCount() + "x " + new TranslatableComponent(slot1.getDescriptionId()).getString());
+        }
+        if (blockEntity.getProgress() != 0) {
+            List<Component> infoList = blockEntity.getWailaInfo(blockEntity);
+            for (Component tooltip : infoList) {
+                info.text(tooltip);
+            }
         }
     }
 
@@ -174,5 +185,10 @@ public class BaseFreezerBlock extends BaseEntityBlock implements TOPCompat.ITOPI
             }
         }
         super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
+    }
+
+    @Override
+    public RenderShape getRenderShape(BlockState pState) {
+        return RenderShape.MODEL;
     }
 }

@@ -6,8 +6,10 @@ import mcp.mobius.waila.api.IWailaClientRegistration;
 import mcp.mobius.waila.api.IWailaCommonRegistration;
 import mcp.mobius.waila.api.IWailaPlugin;
 import mcp.mobius.waila.api.TooltipPosition;
+import mcp.mobius.waila.api.WailaPlugin;
 
-public class WailaPlugin implements IWailaPlugin {
+@WailaPlugin
+public class SkySelPlugin implements IWailaPlugin {
 
     @Override
     public void register(IWailaCommonRegistration registration) {

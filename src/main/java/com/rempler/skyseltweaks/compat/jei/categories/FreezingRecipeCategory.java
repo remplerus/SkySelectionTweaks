@@ -2,7 +2,7 @@ package com.rempler.skyseltweaks.compat.jei.categories;
 
 import com.rempler.skyseltweaks.SkySelTweaks;
 import com.rempler.skyseltweaks.common.init.SkySelBlocks;
-import com.rempler.skyseltweaks.common.recipe.FreezingRecipe;
+import com.rempler.skyseltweaks.common.recipe.freezing.FreezingRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;

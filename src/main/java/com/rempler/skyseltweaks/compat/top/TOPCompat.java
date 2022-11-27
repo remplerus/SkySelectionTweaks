@@ -30,7 +30,7 @@ public class TOPCompat {
             iTheOneProbe.registerProvider(new IProbeInfoProvider() {
                 @Override
                 public ResourceLocation getID() {
-                    return new ResourceLocation(SkySelTweaks.MOD_ID, ":default");
+                    return new ResourceLocation(SkySelTweaks.MOD_ID, "default");
                 }
 
                 @Override

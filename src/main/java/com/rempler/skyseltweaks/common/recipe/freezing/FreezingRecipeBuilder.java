@@ -1,4 +1,4 @@
-package com.rempler.skyseltweaks.common.recipe;
+package com.rempler.skyseltweaks.common.recipe.freezing;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -24,6 +24,7 @@ public class FreezingRecipeBuilder implements RecipeBuilder {
     private final Ingredient ingredient;
     private final Advancement.Builder advancement = Advancement.Builder.advancement();
     private final int freezeTime;
+    private static final int standardTime = 20;
 
     public FreezingRecipeBuilder(ItemLike ingredient, ItemLike result, int time) {
         this.ingredient = Ingredient.of(ingredient);
@@ -32,7 +33,7 @@ public class FreezingRecipeBuilder implements RecipeBuilder {
     }
 
     public static FreezingRecipeBuilder freezing(ItemLike ingredient, ItemLike result) {
-        return freezing(ingredient, result, 200);
+        return freezing(ingredient, result, standardTime*10);
     }
 
     public static FreezingRecipeBuilder freezing(ItemLike ingredient, ItemLike result, int time) {
@@ -40,13 +41,13 @@ public class FreezingRecipeBuilder implements RecipeBuilder {
     }
 
     @Override
-    public RecipeBuilder unlockedBy(String pCriterionName, CriterionTriggerInstance pCriterionTrigger) {
+    public FreezingRecipeBuilder unlockedBy(String pCriterionName, CriterionTriggerInstance pCriterionTrigger) {
         this.advancement.addCriterion(pCriterionName, pCriterionTrigger);
         return this;
     }
 
     @Override
-    public RecipeBuilder group(@Nullable String pGroupName) {
+    public FreezingRecipeBuilder group(@Nullable String pGroupName) {
         return this;
     }
 
@@ -92,7 +93,7 @@ public class FreezingRecipeBuilder implements RecipeBuilder {
             pJson.add("ingredients", jsonarray);
             JsonObject jsonobject = new JsonObject();
             jsonobject.addProperty("item", this.result.getRegistryName().toString());
-            jsonobject.addProperty("freezeTime", this.time == 0 ? 200 : this.time);
+            jsonobject.addProperty("freezeTime", this.time < 20 ? standardTime : this.time);
 
             pJson.add("output", jsonobject);
         }

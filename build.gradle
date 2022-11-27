@@ -110,6 +110,19 @@ repositories {
             includeGroup 'curse.maven'
         }
     }
+    maven {
+        url = "https://maven.architectury.dev"
+        content {
+            includeGroup "dev.architectury"
+        }
+    }
+
+    maven {
+        url = "https://maven.saps.dev/minecraft"
+        content {
+            includeGroup "dev.latvian.mods"
+        }
+    }
 }
 
 dependencies {
@@ -120,6 +133,10 @@ dependencies {
     implementation fg.deobf("curse.maven:theoneprobe-245211:${top_version}")
     compileOnly fg.deobf("curse.maven:jade-api-324717:${jade_version_api}")
     runtimeOnly fg.deobf("curse.maven:jade-324717:${jade_version}")
+
+    implementation fg.deobf("dev.latvian.mods:kubejs-forge:${kubejs_version}")
+    implementation fg.deobf("dev.latvian.mods:rhino-forge:${rhino_version}")
+    implementation fg.deobf("dev.architectury:architectury-forge:${architectury_version}")
 }
 
 jar {

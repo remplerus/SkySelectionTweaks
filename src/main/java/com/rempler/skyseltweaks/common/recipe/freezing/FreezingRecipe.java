@@ -1,4 +1,4 @@
-package com.rempler.skyseltweaks.common.recipe;
+package com.rempler.skyseltweaks.common.recipe.freezing;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -15,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class FreezingRecipe implements Recipe<SimpleContainer> {
     private final ResourceLocation id;
-    private final ItemStack result;
+    private ItemStack result;
     private final NonNullList<Ingredient> recipeItems;
     private static int freezeTime = 200;
 
@@ -36,6 +36,10 @@ public class FreezingRecipe implements Recipe<SimpleContainer> {
         return recipeItems;
     }
 
+    public void setIngredients(Ingredient ingredient) {
+        recipeItems.add(ingredient);
+    }
+
     @Override
     public ItemStack assemble(SimpleContainer pContainer) {
         return result;
@@ -51,8 +55,16 @@ public class FreezingRecipe implements Recipe<SimpleContainer> {
         return result.copy();
     }
 
+    public void setResultItem(ItemStack resultItem) {
+        this.result = resultItem;
+    }
+
     public static int getFreezeTime() {
         return freezeTime;
+    }
+
+    public void setFreezeTime(int time) {
+        freezeTime = time;
     }
 
     @Override
@@ -73,7 +85,7 @@ public class FreezingRecipe implements Recipe<SimpleContainer> {
     public static class Type implements RecipeType<FreezingRecipe> {
         private Type() { }
         public static final Type INSTANCE = new Type();
-        public static final String ID = "freezing";
+        public static final ResourceLocation ID = new ResourceLocation(SkySelTweaks.MOD_ID, "freezing");
     }
 
     public static class Serializer implements RecipeSerializer<FreezingRecipe> {

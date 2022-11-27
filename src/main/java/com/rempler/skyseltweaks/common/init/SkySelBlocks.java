@@ -19,9 +19,9 @@ public class SkySelBlocks {
     public static final RegistryObject<FlowerBlock> CACTUS_FRUIT_NEEDLE = BLOCKS.register("cactus_fruit_needle", () ->
             new FlowerBlock(MobEffects.MOVEMENT_SPEED, 0, BlockBehaviour.Properties.of(Material.PLANT).noCollission().instabreak().sound(SoundType.GRASS)));
     public static final RegistryObject<BaseFreezerBlock> MINI_FREEZER = BLOCKS.register("mini_freezer", () ->
-            new BaseFreezerBlock(BlockBehaviour.Properties.of(Material.SNOW).strength(2.0f, 5.0f).sound(SoundType.SNOW).dynamicShape()));
+            new BaseFreezerBlock(BlockBehaviour.Properties.of(Material.SNOW).strength(2.0f, 5.0f).sound(SoundType.SNOW)));
     public static final RegistryObject<IronFreezerBlock> IRON_FREEZER = BLOCKS.register("iron_freezer", () ->
-            new IronFreezerBlock(BlockBehaviour.Properties.of(Material.METAL).strength(3.5f, 10.0f).sound(SoundType.METAL).dynamicShape()));
+            new IronFreezerBlock(BlockBehaviour.Properties.of(Material.METAL).strength(3.5f, 10.0f).sound(SoundType.METAL)));
     public static final RegistryObject<Block> HEAVY_SNOW = BLOCKS.register("heavy_snow", () ->
             new Block(BlockBehaviour.Properties.of(Material.SNOW).strength(2.0f).sound(SoundType.SNOW)));
 

@@ -1,16 +1,18 @@
 package com.rempler.skyseltweaks.common.block.entity;
 
 import com.rempler.skyseltweaks.SkySelTweaks;
-import com.rempler.skyseltweaks.common.block.BaseFreezerBlock;
 import com.rempler.skyseltweaks.common.block.container.BaseFreezerMenu;
 import com.rempler.skyseltweaks.common.init.SkySelBEs;
-import com.rempler.skyseltweaks.common.init.SkySelItems;
-import com.rempler.skyseltweaks.common.recipe.FreezingRecipe;
+import com.rempler.skyseltweaks.common.recipe.freezing.FreezingRecipe;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
@@ -19,7 +21,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -37,7 +38,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class BaseFreezerBlockEntity extends BlockEntity implements MenuProvider {
-    private final ItemStackHandler itemHandler = new ItemStackHandler(2) {
+    public final ItemStackHandler itemHandler = new ItemStackHandler(2) {
         @Override
         protected void onContentsChanged(int slot) {
             setChanged();
@@ -122,6 +123,27 @@ public class BaseFreezerBlockEntity extends BlockEntity implements MenuProvider 
         super.saveAdditional(pTag);
     }
 
+    @Override
+    public CompoundTag getUpdateTag() {
+        CompoundTag tag = new CompoundTag();
+        tag.putInt("progress", progress);
+        return tag;
+    }
+
+    @Nullable
+    @Override
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
+    }
+
+    @Override
+    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
+        CompoundTag tag = pkt.getTag();
+        if (tag.contains("progress")) {
+            progress = tag.getInt("progress");
+        }
+    }
+
     public void dropContent() {
         SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
         for (int i = 0; i < itemHandler.getSlots(); i++) {
@@ -189,7 +211,7 @@ public class BaseFreezerBlockEntity extends BlockEntity implements MenuProvider 
 
     public List<Component> getWailaInfo(BaseFreezerBlockEntity blockEntity) {
         List<Component> info = new ArrayList<>();
-        info.add(new TranslatableComponent("waila.freezer.progress", new DecimalFormat("#%").format(blockEntity.getProgress()* 100L /blockEntity.getFreezingTime())));
+        info.add(new TranslatableComponent("waila.freezer.progress", new DecimalFormat().format(blockEntity.getProgress()*100 / blockEntity.getFreezingTime())));
         return info;
     }
 

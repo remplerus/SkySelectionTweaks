@@ -17,7 +17,6 @@ public class ClientSetup {
     @SubscribeEvent
     public static void setupClient(final FMLClientSetupEvent ignored) {
         ItemBlockRenderTypes.setRenderLayer(SkySelBlocks.CACTUS_FRUIT_NEEDLE.get(), RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(SkySelBlocks.MINI_FREEZER.get(), RenderType.solid());
         MenuScreens.register(SkySelMenus.MINI_FREEZER.get(), BaseFreezerScreen::new);
     }
 }

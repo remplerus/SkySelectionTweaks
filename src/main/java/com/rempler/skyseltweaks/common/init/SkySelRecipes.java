@@ -1,7 +1,7 @@
 package com.rempler.skyseltweaks.common.init;
 
 import com.rempler.skyseltweaks.SkySelTweaks;
-import com.rempler.skyseltweaks.common.recipe.FreezingRecipe;
+import com.rempler.skyseltweaks.common.recipe.freezing.FreezingRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;

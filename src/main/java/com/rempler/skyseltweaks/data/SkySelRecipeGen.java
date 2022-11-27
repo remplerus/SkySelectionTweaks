@@ -1,9 +1,8 @@
 package com.rempler.skyseltweaks.data;
 
-import com.rempler.skyseltweaks.SkySelTweaks;
 import com.rempler.skyseltweaks.common.init.SkySelBlocks;
 import com.rempler.skyseltweaks.common.init.SkySelItems;
-import com.rempler.skyseltweaks.common.recipe.FreezingRecipeBuilder;
+import com.rempler.skyseltweaks.common.recipe.freezing.FreezingRecipeBuilder;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;

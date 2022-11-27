@@ -27,5 +27,5 @@
   "item.skyseltweaks.heavy_explosive_snowball": "Heavy Explosive Snowball",
   "item.skyseltweaks.mini_freezer": "Mini Freezer",
   "item.skyseltweaks.iron_freezer": "Iron Freezer",
-  "waila.freezer.progress": "Progress: %d"
+  "waila.freezer.progress": "Freezing: %d%%"
 }

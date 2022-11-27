@@ -1,7 +1,7 @@
 package com.rempler.skyseltweaks.compat.jei;
 
 import com.rempler.skyseltweaks.SkySelTweaks;
-import com.rempler.skyseltweaks.common.recipe.FreezingRecipe;
+import com.rempler.skyseltweaks.common.recipe.freezing.FreezingRecipe;
 import com.rempler.skyseltweaks.compat.jei.categories.FreezingRecipeCategory;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
