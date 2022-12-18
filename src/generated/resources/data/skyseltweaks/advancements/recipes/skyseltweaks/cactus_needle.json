@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "skyseltweaks:cactus_needle"
+    ]
+  },
+  "criteria": {
+    "has_knife": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "skyseltweaks:knifes"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "skyseltweaks:cactus_needle"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_knife",
+      "has_the_recipe"
+    ]
+  ]
+}

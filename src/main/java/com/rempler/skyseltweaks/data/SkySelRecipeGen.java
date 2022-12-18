@@ -1,8 +1,11 @@
 package com.rempler.skyseltweaks.data;
 
+import com.rempler.skyseltweaks.SkySelTweaks;
 import com.rempler.skyseltweaks.common.init.SkySelBlocks;
 import com.rempler.skyseltweaks.common.init.SkySelItems;
 import com.rempler.skyseltweaks.common.recipe.freezing.FreezingRecipeBuilder;
+import com.rempler.skyseltweaks.common.recipe.infusing.InfusingRecipeBuilder;
+import com.rempler.skyseltweaks.common.recipe.knifing.KnifingRecipeBuilder;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -33,6 +36,17 @@ public class SkySelRecipeGen extends RecipeProvider implements IConditionBuilder
         ShapelessRecipeBuilder.shapeless(SkySelBlocks.HEAVY_SNOW.get())
                 .requires(SkySelItems.HEAVY_SNOWBALL.get(), 4)
                 .unlockedBy("has_heavy_snowball", inventoryTrigger(ItemPredicate.Builder.item().of(SkySelItems.HEAVY_SNOWBALL.get()).build()))
+                .save(consumer);
+
+        //infusing
+        InfusingRecipeBuilder.infusing(SkySelItems.CACTUS_NEEDLE.get(), 8, SkySelBlocks.CACTUS_FRUIT_NEEDLE.get(), Items.OAK_SAPLING)
+                .unlockedBy("has_cactus_fruit", inventoryTrigger(ItemPredicate.Builder.item().of(SkySelItems.CACTUS_FRUIT.get()).build()))
+                .unlockedBy("has_cactus_needle", inventoryTrigger(ItemPredicate.Builder.item().of(SkySelItems.CACTUS_NEEDLE.get()).build()))
+                .save(consumer);
+
+        //knifing
+        KnifingRecipeBuilder.knifing(SkySelItems.CACTUS_NEEDLE.get(), Items.CACTUS)
+                .unlockedBy("has_knife", inventoryTrigger(ItemPredicate.Builder.item().of(SkySelTweaks.KNIFES).build()))
                 .save(consumer);
 
         //sandy

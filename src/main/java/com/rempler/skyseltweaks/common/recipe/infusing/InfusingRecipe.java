@@ -14,6 +14,7 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.ShapedRecipe;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
@@ -22,11 +23,15 @@ public class InfusingRecipe implements Recipe<SimpleContainer> {
     private ItemStack result;
     private final NonNullList<Ingredient> recipeItems;
     private static int health = 4;
+    private ItemStack block;
+    private static int count = 1;
 
-    public InfusingRecipe(ResourceLocation id, ItemStack result, NonNullList<Ingredient> recipeItems, int health) {
+    public InfusingRecipe(ResourceLocation id, ItemStack result, ItemStack block, NonNullList<Ingredient> recipeItems, int inputCount, int health) {
         this.id = id;
+        this.block = block;
         this.result = result;
         this.recipeItems = recipeItems;
+        InfusingRecipe.count = inputCount;
         InfusingRecipe.health = health;
     }
 
@@ -63,12 +68,21 @@ public class InfusingRecipe implements Recipe<SimpleContainer> {
         result = stack;
     }
 
-    public static int getHealth() {
+    public int getHealth() {
         return health;
     }
+    public int getCount() { return count; }
 
     public void setHealth(int health1) {
         health = health1;
+    }
+    public void setCount(int count1) {
+        count = count1;
+    }
+    public ItemStack getBlock() { return block; }
+
+    public void setBlock(ItemLike block1) {
+        block = block1.asItem().getDefaultInstance();
     }
 
     @Override
@@ -99,6 +113,7 @@ public class InfusingRecipe implements Recipe<SimpleContainer> {
         @Override
         public InfusingRecipe fromJson(ResourceLocation id, JsonObject json) {
             ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
+            ItemStack block = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "blockInput"));
 
             JsonArray ingredients = GsonHelper.getAsJsonArray(json, "ingredients");
             NonNullList<Ingredient> inputs = NonNullList.withSize(1, Ingredient.EMPTY);
@@ -107,20 +122,23 @@ public class InfusingRecipe implements Recipe<SimpleContainer> {
                 inputs.set(i, Ingredient.fromJson(ingredients.get(i)));
             }
 
+            int inputCount = GsonHelper.getAsInt(json, "inputCount", 1);
+
             int health = GsonHelper.getAsInt(json, "health", 4);
 
-            return new InfusingRecipe(id, output, inputs, health);
+            return new InfusingRecipe(id, output, block, inputs, inputCount, health);
         }
 
         @Override
         public InfusingRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buf) {
-            NonNullList<Ingredient> inputs = NonNullList.withSize(buf.readInt(), Ingredient.EMPTY);
+            NonNullList<Ingredient> inputs = NonNullList.withSize(buf.readVarInt(), Ingredient.EMPTY);
 
             inputs.replaceAll(ignored -> Ingredient.fromNetwork(buf));
-
+            int inputCount = buf.readVarInt();
             ItemStack output = buf.readItem();
+            ItemStack block = buf.readItem();
             int health = buf.readVarInt();
-            return new InfusingRecipe(id, output, inputs, health);
+            return new InfusingRecipe(id, output, block, inputs, inputCount, health);
         }
 
         @Override
@@ -129,6 +147,7 @@ public class InfusingRecipe implements Recipe<SimpleContainer> {
             for (Ingredient ing : recipe.getIngredients()) {
                 ing.toNetwork(buf);
             }
+            buf.writeItemStack(recipe.getBlock(), false);
             buf.writeItemStack(recipe.getResultItem(), false);
         }
 

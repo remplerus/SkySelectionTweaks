@@ -1,0 +1,16 @@
+{
+  "type": "skyseltweaks:infusing",
+  "ingredients": [
+    {
+      "item": "skyseltweaks:cactus_needle"
+    }
+  ],
+  "inputCount": 8,
+  "blockInput": {
+    "item": "skyseltweaks:cactus_fruit_needle"
+  },
+  "health": 2,
+  "output": {
+    "item": "minecraft:oak_sapling"
+  }
+}

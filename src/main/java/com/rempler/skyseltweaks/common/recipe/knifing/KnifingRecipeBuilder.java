@@ -1,6 +1,5 @@
-package com.rempler.skyseltweaks.common.recipe.freezing;
+package com.rempler.skyseltweaks.common.recipe.knifing;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.rempler.skyseltweaks.SkySelTweaks;
 import net.minecraft.advancements.Advancement;
@@ -12,42 +11,35 @@ import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Consumer;
 
-public class FreezingRecipeBuilder implements RecipeBuilder {
+public class KnifingRecipeBuilder implements RecipeBuilder {
     private final Item result;
-    private final Ingredient ingredient;
     private final Advancement.Builder advancement = Advancement.Builder.advancement();
-    private final int freezeTime;
-    private static final int standardTime = 20;
+    private final Item block;
 
-    public FreezingRecipeBuilder(ItemLike ingredient, ItemLike result, int time) {
-        this.ingredient = Ingredient.of(ingredient);
+    public KnifingRecipeBuilder(ItemLike result, ItemLike block) {
         this.result = result.asItem();
-        this.freezeTime = time;
+        this.block = block.asItem();
     }
 
-    public static FreezingRecipeBuilder freezing(ItemLike ingredient, ItemLike result) {
-        return freezing(ingredient, result, standardTime*10);
-    }
-
-    public static FreezingRecipeBuilder freezing(ItemLike ingredient, ItemLike result, int time) {
-        return new FreezingRecipeBuilder(ingredient, result, time);
+    public static KnifingRecipeBuilder knifing(ItemLike result, ItemLike block) {
+        return new KnifingRecipeBuilder(result, block);
     }
 
     @Override
-    public FreezingRecipeBuilder unlockedBy(String pCriterionName, CriterionTriggerInstance pCriterionTrigger) {
+    public KnifingRecipeBuilder unlockedBy(String pCriterionName, CriterionTriggerInstance pCriterionTrigger) {
         this.advancement.addCriterion(pCriterionName, pCriterionTrigger);
         return this;
     }
 
     @Override
-    public FreezingRecipeBuilder group(@Nullable String pGroupName) {
+    public KnifingRecipeBuilder group(@Nullable String pGroupName) {
         return this;
     }
 
@@ -57,12 +49,12 @@ public class FreezingRecipeBuilder implements RecipeBuilder {
     }
 
     @Override
-    public void save(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ResourceLocation pRecipeId) {
+    public void save(Consumer<FinishedRecipe> pFinishedRecipeConsumer, @NotNull ResourceLocation pRecipeId) {
         this.advancement.parent(new ResourceLocation("recipes/root"))
                 .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(pRecipeId))
                 .rewards(AdvancementRewards.Builder.recipe(pRecipeId)).requirements(RequirementsStrategy.OR);
 
-        pFinishedRecipeConsumer.accept(new FreezingRecipeBuilder.Result(pRecipeId, this.result, this.freezeTime, this.ingredient,
+        pFinishedRecipeConsumer.accept(new Result(pRecipeId, this.result, this.block,
                 this.advancement, new ResourceLocation(pRecipeId.getNamespace(), "recipes/" +
                 this.result.getItemCategory().getRecipeFolderName() + "/" + pRecipeId.getPath())));
     }
@@ -70,43 +62,39 @@ public class FreezingRecipeBuilder implements RecipeBuilder {
     public static class Result implements FinishedRecipe {
         private final ResourceLocation id;
         private final Item result;
-        private final Ingredient ingredient;
-        private final int time;
+        private final Item block;
         private final Advancement.Builder advancement;
         private final ResourceLocation advancementId;
 
-        public Result(ResourceLocation pId, Item pResult, int freezeTime, Ingredient ingredient, Advancement.Builder pAdvancement,
+        public Result(ResourceLocation pId, Item pResult, Item block, Advancement.Builder pAdvancement,
                       ResourceLocation pAdvancementId) {
             this.id = pId;
             this.result = pResult;
-            this.time = freezeTime;
-            this.ingredient = ingredient;
+            this.block = block;
             this.advancement = pAdvancement;
             this.advancementId = pAdvancementId;
         }
 
         @Override
         public void serializeRecipeData(JsonObject pJson) {
-            JsonArray jsonarray = new JsonArray();
-            jsonarray.add(ingredient.toJson());
-
-            pJson.add("ingredients", jsonarray);
             JsonObject jsonobject = new JsonObject();
             jsonobject.addProperty("item", this.result.getRegistryName().toString());
-            pJson.addProperty("freezeTime", this.time < 20 ? standardTime : this.time);
+            JsonObject jsonobject1 = new JsonObject();
+            jsonobject1.addProperty("item", this.block.getRegistryName().toString());
 
+            pJson.add("blockInput", jsonobject1);
             pJson.add("output", jsonobject);
         }
 
         @Override
         public ResourceLocation getId() {
-            return new ResourceLocation(SkySelTweaks.MOD_ID, "freezing/" +
+            return new ResourceLocation(SkySelTweaks.MOD_ID, "knifing/" +
                     this.result.getRegistryName().getPath());
         }
 
         @Override
         public RecipeSerializer<?> getType() {
-            return FreezingRecipe.Serializer.INSTANCE;
+            return KnifingRecipe.Serializer.INSTANCE;
         }
 
         @Nullable

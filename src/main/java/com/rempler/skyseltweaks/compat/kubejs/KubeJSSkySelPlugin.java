@@ -9,5 +9,7 @@ public class KubeJSSkySelPlugin extends KubeJSPlugin {
     @Override
     public void addRecipes(RegisterRecipeHandlersEvent event) {
         event.register(new ResourceLocation(SkySelTweaks.MOD_ID, "freezing"), FreezingRecipeJS::new);
+        event.register(new ResourceLocation(SkySelTweaks.MOD_ID, "infusing"), InfusingRecipeJS::new);
+        event.register(new ResourceLocation(SkySelTweaks.MOD_ID, "knifing"), KnifingRecipeJS::new);
     }
 }

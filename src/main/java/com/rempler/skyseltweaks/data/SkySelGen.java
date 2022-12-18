@@ -12,6 +12,9 @@ public class SkySelGen {
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event) {
         DataGenerator generator = event.getGenerator();
+        if (event.includeClient()) {
+            generator.addProvider(new SkySelLangGen(generator, "en_us"));
+        }
         if (event.includeServer()) {
             generator.addProvider(new SkySelItemTagGen(generator, event.getExistingFileHelper()));
             generator.addProvider(new SkySelBlockTagGen(generator, event.getExistingFileHelper()));

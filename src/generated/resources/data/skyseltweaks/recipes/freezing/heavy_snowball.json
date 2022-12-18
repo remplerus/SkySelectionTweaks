@@ -5,8 +5,8 @@
       "item": "minecraft:snowball"
     }
   ],
+  "freezeTime": 200,
   "output": {
-    "item": "skyseltweaks:heavy_snowball",
-    "freezeTime": 200
+    "item": "skyseltweaks:heavy_snowball"
   }
 }
