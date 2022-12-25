@@ -2,7 +2,7 @@ package com.rempler.skyseltweaks.common.recipe.freezing;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.rempler.skyseltweaks.SkySelTweaks;
+import com.rempler.skyseltweaks.common.utils.SkySelConstants;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.CriterionTriggerInstance;
@@ -100,7 +100,7 @@ public class FreezingRecipeBuilder implements RecipeBuilder {
 
         @Override
         public ResourceLocation getId() {
-            return new ResourceLocation(SkySelTweaks.MOD_ID, "freezing/" +
+            return new ResourceLocation(SkySelConstants.FREEZING_RL + "/" +
                     this.result.getRegistryName().getPath());
         }
 

@@ -3,20 +3,21 @@ package com.rempler.skyseltweaks.compat.crt.infusing;
 import com.blamejared.crafttweaker.api.annotation.ZenRegister;
 import com.blamejared.crafttweaker.api.ingredient.IIngredient;
 import com.blamejared.crafttweaker.api.item.IItemStack;
-import com.rempler.skyseltweaks.common.recipe.freezing.FreezingRecipe;
 import com.rempler.skyseltweaks.common.recipe.infusing.InfusingRecipe;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import org.openzen.zencode.java.ZenCodeType;
 
 @ZenRegister
 @ZenCodeType.Name("mods.skyseltweaks.ZenInfusingRecipe")
 public class ZenInfusingRecipe {
     private final InfusingRecipe internal;
+    private NonNullList<Ingredient> blockList = NonNullList.create();
 
     private ZenInfusingRecipe(ResourceLocation recipeId) {
-        this.internal = new InfusingRecipe(recipeId, ItemStack.EMPTY, ItemStack.EMPTY, NonNullList.create(), 1, 0);
+        this.internal = new InfusingRecipe(recipeId, ItemStack.EMPTY, blockList, NonNullList.create(), 1, 0);
     }
 
     @ZenCodeType.Method
@@ -47,8 +48,9 @@ public class ZenInfusingRecipe {
     }
 
     @ZenCodeType.Method
-    public ZenInfusingRecipe setBlock(IItemStack block) {
-        internal.setBlock(block.getInternal().getItem());
+    public ZenInfusingRecipe setBlock(Ingredient block) {
+        blockList.add(block);
+        internal.setBlock(blockList);
         return this;
     }
 

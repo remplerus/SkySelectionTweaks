@@ -1,0 +1,12 @@
+{
+  "type": "skyseltweaks:freezing",
+  "ingredients": [
+    {
+      "item": "skyseltweaks:boney_gunpowder"
+    }
+  ],
+  "freezeTime": 12500,
+  "output": {
+    "item": "minecraft:spruce_sapling"
+  }
+}

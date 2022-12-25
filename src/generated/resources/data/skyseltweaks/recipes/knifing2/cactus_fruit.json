@@ -1,0 +1,9 @@
+{
+  "type": "skyseltweaks:knifing2",
+  "blockInput": {
+    "item": "minecraft:cactus"
+  },
+  "output": {
+    "item": "skyseltweaks:cactus_fruit"
+  }
+}

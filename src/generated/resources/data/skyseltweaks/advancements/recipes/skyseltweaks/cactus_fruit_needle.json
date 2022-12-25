@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "skyseltweaks:cactus_fruit_needle"
+    ]
+  },
+  "criteria": {
+    "has_cactus_needle": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "skyseltweaks:cactus_needle"
+            ]
+          }
+        ]
+      }
+    },
+    "has_cactus_fruit": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "skyseltweaks:cactus_fruit"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "skyseltweaks:cactus_fruit_needle"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_cactus_needle",
+      "has_cactus_fruit",
+      "has_the_recipe"
+    ]
+  ]
+}

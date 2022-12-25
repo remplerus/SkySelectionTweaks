@@ -1,21 +1,21 @@
 package com.rempler.skyseltweaks.data;
 
-import com.rempler.skyseltweaks.SkySelTweaks;
 import com.rempler.skyseltweaks.common.init.SkySelBlocks;
 import com.rempler.skyseltweaks.common.init.SkySelItems;
-import com.rempler.skyseltweaks.compat.jei.categories.FreezingRecipeCategory;
+import com.rempler.skyseltweaks.common.utils.SkySelConstants;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.LanguageProvider;
 import org.apache.commons.lang3.text.WordUtils;
+import org.apache.http.util.TextUtils;
 
 public class SkySelLangGen extends LanguageProvider {
     private final String myModID;
     public SkySelLangGen(DataGenerator gen, String locale) {
-        super(gen, SkySelTweaks.MOD_ID, locale);
-        this.myModID = SkySelTweaks.MOD_ID;
+        super(gen, SkySelConstants.MODID, locale);
+        this.myModID = SkySelConstants.MODID;
     }
 
     @Override
@@ -36,6 +36,7 @@ public class SkySelLangGen extends LanguageProvider {
         add("category." + myModID + ".freezing", "Freezing");
         add("category." + myModID +".infusing", "Infusing");
         add("category." + myModID +".knifing", "Knifing");
+        add("category." + myModID +".knifing2", "Knifing 2");
         add("container."+ myModID +".mini_freezer", "Mini Freezer");
         add("waila.freezer.progress", "Freezing: %d%%");
     }

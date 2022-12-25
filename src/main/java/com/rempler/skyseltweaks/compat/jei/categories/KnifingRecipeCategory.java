@@ -1,10 +1,8 @@
 package com.rempler.skyseltweaks.compat.jei.categories;
 
-import com.rempler.skyseltweaks.SkySelTweaks;
-import com.rempler.skyseltweaks.common.init.SkySelBlocks;
 import com.rempler.skyseltweaks.common.init.SkySelItems;
-import com.rempler.skyseltweaks.common.recipe.freezing.FreezingRecipe;
 import com.rempler.skyseltweaks.common.recipe.knifing.KnifingRecipe;
+import com.rempler.skyseltweaks.common.utils.SkySelConstants;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -20,8 +18,8 @@ import net.minecraft.world.item.ItemStack;
 
 @SuppressWarnings("removal")
 public class KnifingRecipeCategory implements IRecipeCategory<KnifingRecipe> {
-    public static final ResourceLocation UID = new ResourceLocation(SkySelTweaks.MOD_ID, "knifing");
-    public static final ResourceLocation TEXTURE = new ResourceLocation(SkySelTweaks.MOD_ID, "textures/gui/freezer.png");
+    public static final ResourceLocation UID = SkySelConstants.KNIFING_RL;
+    public static final ResourceLocation TEXTURE = new ResourceLocation(SkySelConstants.MODID, "textures/gui/freezer.png");
     private final IDrawable background;
     private final IDrawable icon;
     public KnifingRecipeCategory(IGuiHelper guiHelper) {
@@ -31,7 +29,7 @@ public class KnifingRecipeCategory implements IRecipeCategory<KnifingRecipe> {
 
     @Override
     public Component getTitle() {
-        return new TranslatableComponent("category." + SkySelTweaks.MOD_ID + ".knifing");
+        return new TranslatableComponent("category." + SkySelConstants.MODID + ".knifing");
     }
 
     @Override

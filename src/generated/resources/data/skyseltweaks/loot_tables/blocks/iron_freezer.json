@@ -7,7 +7,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "skyseltweaks:iron_freezer"
+          "name": "minecraft:air"
         }
       ],
       "conditions": [

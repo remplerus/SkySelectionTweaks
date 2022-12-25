@@ -1,7 +1,7 @@
 package com.rempler.skyseltweaks.common.recipe.knifing;
 
 import com.google.gson.JsonObject;
-import com.rempler.skyseltweaks.SkySelTweaks;
+import com.rempler.skyseltweaks.common.utils.SkySelConstants;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.CriterionTriggerInstance;
@@ -88,7 +88,7 @@ public class KnifingRecipeBuilder implements RecipeBuilder {
 
         @Override
         public ResourceLocation getId() {
-            return new ResourceLocation(SkySelTweaks.MOD_ID, "knifing/" +
+            return new ResourceLocation(SkySelConstants.KNIFING_RL + "/" +
                     this.result.getRegistryName().getPath());
         }
 

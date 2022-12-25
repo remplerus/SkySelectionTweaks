@@ -1,8 +1,8 @@
 package com.rempler.skyseltweaks.common.init;
 
-import com.rempler.skyseltweaks.SkySelTweaks;
 import com.rempler.skyseltweaks.common.block.BaseFreezerBlock;
 import com.rempler.skyseltweaks.common.block.IronFreezerBlock;
+import com.rempler.skyseltweaks.common.utils.SkySelConstants;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FlowerBlock;
@@ -15,7 +15,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class SkySelBlocks {
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, SkySelTweaks.MOD_ID);
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, SkySelConstants.MODID);
     public static final RegistryObject<FlowerBlock> CACTUS_FRUIT_NEEDLE = BLOCKS.register("cactus_fruit_needle", () ->
             new FlowerBlock(MobEffects.MOVEMENT_SPEED, 0, BlockBehaviour.Properties.of(Material.PLANT).noCollission().instabreak().sound(SoundType.GRASS)));
     public static final RegistryObject<BaseFreezerBlock> MINI_FREEZER = BLOCKS.register("mini_freezer", () ->

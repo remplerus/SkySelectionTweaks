@@ -1,13 +1,13 @@
 package com.rempler.skyseltweaks.data;
 
-import com.rempler.skyseltweaks.SkySelTweaks;
+import com.rempler.skyseltweaks.common.utils.SkySelConstants;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 
 @SuppressWarnings("unused")
-@Mod.EventBusSubscriber(modid = SkySelTweaks.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = SkySelConstants.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class SkySelGen {
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event) {

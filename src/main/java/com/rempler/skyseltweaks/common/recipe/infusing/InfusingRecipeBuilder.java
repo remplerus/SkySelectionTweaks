@@ -2,7 +2,7 @@ package com.rempler.skyseltweaks.common.recipe.infusing;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.rempler.skyseltweaks.SkySelTweaks;
+import com.rempler.skyseltweaks.common.utils.SkySelConstants;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.CriterionTriggerInstance;
@@ -11,7 +11,7 @@ import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -23,7 +23,7 @@ import java.util.function.Consumer;
 public class InfusingRecipeBuilder implements RecipeBuilder {
     private final Item result;
     private final Ingredient ingredient;
-    private final Item block;
+    private final Ingredient block;
     private final int count;
     private final Advancement.Builder advancement = Advancement.Builder.advancement();
     private final int health;
@@ -31,9 +31,21 @@ public class InfusingRecipeBuilder implements RecipeBuilder {
     public InfusingRecipeBuilder(ItemLike ingredient, int itemCount, ItemLike block, ItemLike result, int health) {
         this.ingredient = Ingredient.of(ingredient);
         this.count = itemCount;
-        this.block = block.asItem();
+        this.block = Ingredient.of(block);
         this.result = result.asItem();
         this.health = health;
+    }
+
+    public InfusingRecipeBuilder(ItemLike ingredient, int itemCount, TagKey<Item> block, ItemLike result, int health) {
+        this.ingredient = Ingredient.of(ingredient);
+        this.count = itemCount;
+        this.block = Ingredient.of(block);
+        this.result = result.asItem();
+        this.health = health;
+    }
+
+    public static InfusingRecipeBuilder infusing(ItemLike ingredient, int count, TagKey<Item> block, ItemLike result) {
+        return infusing(ingredient, count, block, result, standardHealth);
     }
 
     public static InfusingRecipeBuilder infusing(ItemLike ingredient, int count, ItemLike block, ItemLike result) {
@@ -42,6 +54,10 @@ public class InfusingRecipeBuilder implements RecipeBuilder {
 
     public static InfusingRecipeBuilder infusing(ItemLike ingredient, ItemLike block, ItemLike result) {
         return infusing(ingredient, 1, block, result);
+    }
+
+    public static InfusingRecipeBuilder infusing(ItemLike ingredient, int count, TagKey<Item> block, ItemLike result, int health) {
+        return new InfusingRecipeBuilder(ingredient, count, block, result, health);
     }
 
     public static InfusingRecipeBuilder infusing(ItemLike ingredient, int count, ItemLike block, ItemLike result, int health) {
@@ -78,14 +94,14 @@ public class InfusingRecipeBuilder implements RecipeBuilder {
     public static class Result implements FinishedRecipe {
         private final ResourceLocation id;
         private final int itemCount;
-        private final Item block;
+        private final Ingredient block;
         private final Item result;
         private final Ingredient ingredient;
         private final int health;
         private final Advancement.Builder advancement;
         private final ResourceLocation advancementId;
 
-        public Result(ResourceLocation pId, Ingredient ingredient, int count, Item block, Item pResult, int standardHealth, Advancement.Builder pAdvancement,
+        public Result(ResourceLocation pId, Ingredient ingredient, int count, Ingredient block, Item pResult, int standardHealth, Advancement.Builder pAdvancement,
                       ResourceLocation pAdvancementId) {
             this.id = pId;
             this.itemCount = count;
@@ -99,22 +115,22 @@ public class InfusingRecipeBuilder implements RecipeBuilder {
 
         @Override
         public void serializeRecipeData(JsonObject pJson) {
-            JsonArray jsonarray = new JsonArray();
-            jsonarray.add(this.ingredient.toJson());
-            pJson.add("ingredients", jsonarray);
+            JsonArray inputArray = new JsonArray();
+            inputArray.add(this.ingredient.toJson());
+            pJson.add("ingredients", inputArray);
             pJson.addProperty("inputCount", this.itemCount);
-            JsonObject jsonObject1 = new JsonObject();
-            jsonObject1.addProperty("item", this.block.getRegistryName().toString());
+            JsonArray blockArray = new JsonArray();
+            blockArray.add(this.block.toJson());
             JsonObject jsonobject = new JsonObject();
             jsonobject.addProperty("item", this.result.getRegistryName().toString());
-            pJson.add("blockInput", jsonObject1);
+            pJson.add("blockInput", blockArray);
             pJson.addProperty("health", this.health);
             pJson.add("output", jsonobject);
         }
 
         @Override
         public ResourceLocation getId() {
-            return new ResourceLocation(SkySelTweaks.MOD_ID, "infusing/" + id.getPath());
+            return new ResourceLocation(SkySelConstants.INFUSING_RL + "/" + id.getPath());
         }
 
         @Override

@@ -1,9 +1,9 @@
 package com.rempler.skyseltweaks.common.block.entity;
 
-import com.rempler.skyseltweaks.SkySelTweaks;
 import com.rempler.skyseltweaks.common.block.container.BaseFreezerMenu;
 import com.rempler.skyseltweaks.common.init.SkySelBEs;
 import com.rempler.skyseltweaks.common.recipe.freezing.FreezingRecipe;
+import com.rempler.skyseltweaks.common.utils.SkySelConstants;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -78,7 +78,7 @@ public class BaseFreezerBlockEntity extends BlockEntity implements MenuProvider 
 
     @Override
     public Component getDisplayName() {
-        return new TranslatableComponent("container." + SkySelTweaks.MOD_ID + ".mini_freezer");
+        return new TranslatableComponent("container." + SkySelConstants.MODID + ".mini_freezer");
     }
 
     @Nullable

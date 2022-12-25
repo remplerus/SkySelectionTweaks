@@ -2,7 +2,7 @@ package com.rempler.skyseltweaks.common.block.container;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.rempler.skyseltweaks.SkySelTweaks;
+import com.rempler.skyseltweaks.common.utils.SkySelConstants;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
@@ -10,7 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
 public class BaseFreezerScreen extends AbstractContainerScreen<BaseFreezerMenu> {
-    private static final ResourceLocation TEXTURE = new ResourceLocation(SkySelTweaks.MOD_ID,
+    private static final ResourceLocation TEXTURE = new ResourceLocation(SkySelConstants.MODID,
             "textures/gui/mini_freezer.png");
     public BaseFreezerScreen(BaseFreezerMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);

@@ -1,0 +1,12 @@
+{
+  "type": "skyseltweaks:freezing",
+  "ingredients": [
+    {
+      "item": "skyseltweaks:heavy_snow"
+    }
+  ],
+  "freezeTime": 25000,
+  "output": {
+    "item": "minecraft:dirt"
+  }
+}

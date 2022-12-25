@@ -2,14 +2,17 @@ package com.rempler.skyseltweaks.common.item;
 
 import com.rempler.skyseltweaks.SkySelTweaks;
 import com.rempler.skyseltweaks.common.recipe.knifing.KnifingRecipe;
+import com.rempler.skyseltweaks.common.recipe.knifing2.Knifing2Recipe;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DiggerItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tiers;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -32,11 +35,46 @@ public class KnifeItem extends DiggerItem {
     }
 
     @Override
+    public InteractionResult useOn(UseOnContext pContext) {
+        Level pLevel = pContext.getLevel();
+        List<KnifingRecipe> recipeList = pLevel.getRecipeManager().getAllRecipesFor(KnifingRecipe.Type.INSTANCE);
+        Player pPlayer = pContext.getPlayer();
+        if (pPlayer == null) {
+            return InteractionResult.FAIL;
+        }
+        if (!pLevel.isClientSide) {
+            for (KnifingRecipe recipe : recipeList) {
+                if (pPlayer.getUsedItemHand().equals(InteractionHand.MAIN_HAND)) {
+                    if (recipe != null && recipe.getResultItem() != ItemStack.EMPTY) {
+                        ItemStack item = recipe.getResultItem();
+                        if (recipe.getBlock().is(pLevel.getBlockState(pContext.getClickedPos()).getBlock().asItem())) {
+                            if (getSpecial().equals("golden")) {
+                                int random = new Random().nextInt(0, 4);
+                                for (int i = 0; i < 10; i++) {
+                                    if (random <= 2) {
+                                        dropItems(pLevel, pPlayer, item);
+                                    }
+                                }
+                            }
+                            dropItems(pLevel, pPlayer, item);
+                            damageItem(pPlayer);
+                        }
+                    }
+                }
+            }
+            return InteractionResult.SUCCESS;
+        } else {
+            pPlayer.swing(InteractionHand.MAIN_HAND);
+        }
+
+        return super.useOn(pContext);
+    }
+
+    @Override
     public boolean mineBlock(ItemStack pStack, Level pLevel, BlockState pState, BlockPos pPos, LivingEntity pEntityLiving) {
         if (pEntityLiving instanceof Player player) {
-            List<KnifingRecipe> recipeList = pLevel.getRecipeManager().getAllRecipesFor(KnifingRecipe.Type.INSTANCE);
-
-            for (KnifingRecipe recipe : recipeList) {
+            List<Knifing2Recipe> recipeList = pLevel.getRecipeManager().getAllRecipesFor(Knifing2Recipe.Type.INSTANCE);
+            for (Knifing2Recipe recipe : recipeList) {
                 if (player.getUsedItemHand().equals(InteractionHand.MAIN_HAND)) {
                     if (recipe != null && recipe.getResultItem() != ItemStack.EMPTY) {
                         ItemStack item = recipe.getResultItem();
@@ -57,13 +95,13 @@ public class KnifeItem extends DiggerItem {
                         }
                     }
                 }
+                if (pLevel.isClientSide) {
+                    player.swing(InteractionHand.MAIN_HAND);
+                }
+                return true;
             }
-            if (pLevel.isClientSide) {
-                player.swing(InteractionHand.MAIN_HAND);
-            }
-            return true;
         }
-        return super.mineBlock(pStack, pLevel, pState, pPos, pEntityLiving);
+        return mineBlock(pStack, pLevel, pState, pPos, pEntityLiving);
     }
 
     private void dropItems(Level level, Player player, ItemStack stack) {

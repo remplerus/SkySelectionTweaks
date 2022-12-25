@@ -2,14 +2,18 @@ package com.rempler.skyseltweaks.common.recipe.freezing;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.rempler.skyseltweaks.SkySelTweaks;
+import com.rempler.skyseltweaks.common.utils.SkySelConstants;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
@@ -85,12 +89,12 @@ public class FreezingRecipe implements Recipe<SimpleContainer> {
     public static class Type implements RecipeType<FreezingRecipe> {
         private Type() { }
         public static final Type INSTANCE = new Type();
-        public static final ResourceLocation ID = new ResourceLocation(SkySelTweaks.MOD_ID, "freezing");
+        public static final ResourceLocation ID = SkySelConstants.FREEZING_RL;
     }
 
     public static class Serializer implements RecipeSerializer<FreezingRecipe> {
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = new ResourceLocation(SkySelTweaks.MOD_ID,"freezing");
+        public static final ResourceLocation ID = SkySelConstants.FREEZING_RL;
 
         @Override
         public FreezingRecipe fromJson(ResourceLocation id, JsonObject json) {

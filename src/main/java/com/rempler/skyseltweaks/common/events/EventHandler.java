@@ -1,10 +1,11 @@
 package com.rempler.skyseltweaks.common.events;
 
-import com.rempler.skyseltweaks.SkySelTweaks;
 import com.rempler.skyseltweaks.common.init.SkySelItems;
 import com.rempler.skyseltweaks.common.recipe.freezing.FreezingRecipe;
 import com.rempler.skyseltweaks.common.recipe.infusing.InfusingRecipe;
 import com.rempler.skyseltweaks.common.recipe.knifing.KnifingRecipe;
+import com.rempler.skyseltweaks.common.recipe.knifing2.Knifing2Recipe;
+import com.rempler.skyseltweaks.common.utils.SkySelConstants;
 import com.rempler.skyseltweaks.compat.top.TOPCompat;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
@@ -27,13 +28,14 @@ import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 
-@Mod.EventBusSubscriber(modid = SkySelTweaks.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = SkySelConstants.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class EventHandler {
     @SubscribeEvent
     public static void registerRecipeTypes(final RegistryEvent.Register<RecipeSerializer<?>> event) {
         Registry.register(Registry.RECIPE_TYPE, FreezingRecipe.Type.ID, FreezingRecipe.Type.INSTANCE);
         Registry.register(Registry.RECIPE_TYPE, InfusingRecipe.Type.ID, InfusingRecipe.Type.INSTANCE);
         Registry.register(Registry.RECIPE_TYPE, KnifingRecipe.Type.ID, KnifingRecipe.Type.INSTANCE);
+        Registry.register(Registry.RECIPE_TYPE, Knifing2Recipe.Type.ID, Knifing2Recipe.Type.INSTANCE);
     }
 
     @SubscribeEvent

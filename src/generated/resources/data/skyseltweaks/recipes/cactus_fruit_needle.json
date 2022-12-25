@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "f",
+    "n"
+  ],
+  "key": {
+    "f": {
+      "item": "skyseltweaks:cactus_fruit"
+    },
+    "n": {
+      "item": "skyseltweaks:cactus_needle"
+    }
+  },
+  "result": {
+    "item": "skyseltweaks:cactus_fruit_needle"
+  }
+}

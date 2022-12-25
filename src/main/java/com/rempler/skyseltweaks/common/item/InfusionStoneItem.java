@@ -1,7 +1,7 @@
 package com.rempler.skyseltweaks.common.item;
 
-import com.rempler.skyseltweaks.SkySelTweaks;
 import com.rempler.skyseltweaks.common.recipe.infusing.InfusingRecipe;
+import com.rempler.skyseltweaks.common.utils.SkySelConstants;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -40,13 +40,13 @@ public class InfusionStoneItem extends Item {
             if (pContext.getHand().equals(InteractionHand.MAIN_HAND)) {
                 if (recipe != null && recipe.getResultItem() != ItemStack.EMPTY) {
                     if (player.getMaxHealth() < recipe.getHealth() && level.isClientSide) {
-                        player.displayClientMessage(new TranslatableComponent(SkySelTweaks.MOD_ID + "." + InfusingRecipe.Type.ID.getPath() + ".max_health_too_low"), false);
+                        player.displayClientMessage(new TranslatableComponent(SkySelConstants.MODID + "." + InfusingRecipe.Type.ID.getPath() + ".max_health_too_low"), false);
                         return InteractionResult.FAIL;
                     }
                     if (offHand.getCount() < recipe.getCount()) {
                         return InteractionResult.FAIL;
                     }
-                    if (recipe.getBlock().is(block.asItem()) && offHand.is(recipe.getIngredients().get(0).getItems()[0].getItem())) {
+                    if (recipe.getBlock().get(0).getItems()[0].is(block.asItem()) && offHand.is(recipe.getIngredients().get(0).getItems()[0].getItem())) {
                         if (player.getHealth() >= recipe.getHealth() && !level.isClientSide && offHand != ItemStack.EMPTY) {
                             offHand.shrink(recipe.getCount());
                             level.addFreshEntity(new ItemEntity(level, player.getX(), player.getY(), player.getZ(), recipe.getResultItem()));
@@ -54,7 +54,7 @@ public class InfusionStoneItem extends Item {
                             player.hurt(DamageSource.MAGIC, recipe.getHealth());
                             level.setBlockAndUpdate(pContext.getClickedPos(), Blocks.AIR.defaultBlockState());
                         } else if (level.isClientSide && player.getHealth() < recipe.getHealth()) {
-                            player.displayClientMessage(new TranslatableComponent(SkySelTweaks.MOD_ID + "." + InfusingRecipe.Type.ID.getPath() + ".health_too_low"), false);
+                            player.displayClientMessage(new TranslatableComponent(SkySelConstants.MODID + "." + InfusingRecipe.Type.ID.getPath() + ".health_too_low"), false);
                             return InteractionResult.FAIL;
                         }
                     }

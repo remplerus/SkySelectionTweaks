@@ -1,8 +1,8 @@
 package com.rempler.skyseltweaks.compat.jei.categories;
 
-import com.rempler.skyseltweaks.SkySelTweaks;
 import com.rempler.skyseltweaks.common.init.SkySelItems;
 import com.rempler.skyseltweaks.common.recipe.infusing.InfusingRecipe;
+import com.rempler.skyseltweaks.common.utils.SkySelConstants;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -15,9 +15,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 
+@SuppressWarnings("removal")
 public class InfusingRecipeCategory implements IRecipeCategory<InfusingRecipe> {
-    public static final ResourceLocation UID = new ResourceLocation(SkySelTweaks.MOD_ID, "infusing");
-    public static final ResourceLocation TEXTURE = new ResourceLocation(SkySelTweaks.MOD_ID, "textures/gui/freezer.png");
+    public static final ResourceLocation UID = SkySelConstants.INFUSING_RL;
+    public static final ResourceLocation TEXTURE = new ResourceLocation(SkySelConstants.MODID, "textures/gui/freezer.png");
     private final IDrawable background;
     private final IDrawable icon;
     public InfusingRecipeCategory(IGuiHelper guiHelper) {
@@ -27,7 +28,7 @@ public class InfusingRecipeCategory implements IRecipeCategory<InfusingRecipe> {
 
     @Override
     public Component getTitle() {
-        return new TranslatableComponent("category." + SkySelTweaks.MOD_ID + ".infusing");
+        return new TranslatableComponent("category." + SkySelConstants.MODID + ".infusing");
     }
 
     @Override
@@ -60,7 +61,7 @@ public class InfusingRecipeCategory implements IRecipeCategory<InfusingRecipe> {
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, InfusingRecipe recipe, IFocusGroup focuses) {
         builder.addSlot(RecipeIngredientRole.INPUT, 51, 36).addIngredients(recipe.getIngredients().get(0));
-        builder.addSlot(RecipeIngredientRole.INPUT, 106, 36).addItemStack(recipe.getBlock());
+        builder.addSlot(RecipeIngredientRole.INPUT, 106, 36).addIngredients(recipe.getBlock().get(0));
         builder.addSlot(RecipeIngredientRole.CATALYST, 51, 52).addItemStack(SkySelItems.INFUSION_STONE.get().getDefaultInstance());
         builder.addSlot(RecipeIngredientRole.OUTPUT, 106, 52).addItemStack(recipe.getResultItem());
     }

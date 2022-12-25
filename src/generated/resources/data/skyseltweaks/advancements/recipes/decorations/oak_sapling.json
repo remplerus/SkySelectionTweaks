@@ -6,13 +6,13 @@
     ]
   },
   "criteria": {
-    "has_cactus_fruit": {
+    "has_cactus_fruit_needle": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "skyseltweaks:cactus_fruit"
+              "skyseltweaks:cactus_fruit_needle"
             ]
           }
         ]
@@ -39,7 +39,7 @@
   },
   "requirements": [
     [
-      "has_cactus_fruit",
+      "has_cactus_fruit_needle",
       "has_cactus_needle",
       "has_the_recipe"
     ]

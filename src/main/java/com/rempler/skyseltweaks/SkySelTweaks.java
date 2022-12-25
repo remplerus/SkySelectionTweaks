@@ -8,6 +8,7 @@ import com.rempler.skyseltweaks.common.init.SkySelItems;
 import com.rempler.skyseltweaks.common.init.SkySelMenus;
 import com.rempler.skyseltweaks.common.init.SkySelRecipes;
 import com.rempler.skyseltweaks.common.utils.SkySelConfigs;
+import com.rempler.skyseltweaks.common.utils.SkySelConstants;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
@@ -27,7 +28,7 @@ import org.slf4j.Logger;
 
 @Mod("skyseltweaks")
 public class SkySelTweaks {
-    public static final String MOD_ID = "skyseltweaks";
+    private static final String MOD_ID = SkySelConstants.MODID;
     public static CreativeModeTab tab = new CreativeModeTab(MOD_ID) {
         @Override
         public @NotNull ItemStack makeIcon() {

@@ -1,7 +1,7 @@
 package com.rempler.skyseltweaks.common.recipe.knifing;
 
 import com.google.gson.JsonObject;
-import com.rempler.skyseltweaks.SkySelTweaks;
+import com.rempler.skyseltweaks.common.utils.SkySelConstants;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -76,12 +76,12 @@ public class KnifingRecipe implements Recipe<SimpleContainer> {
     public static class Type implements RecipeType<KnifingRecipe> {
         private Type() { }
         public static final Type INSTANCE = new Type();
-        public static final ResourceLocation ID = new ResourceLocation(SkySelTweaks.MOD_ID, "knifing");
+        public static final ResourceLocation ID = SkySelConstants.KNIFING_RL;
     }
 
     public static class Serializer implements RecipeSerializer<KnifingRecipe> {
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = new ResourceLocation(SkySelTweaks.MOD_ID,"knifing");
+        public static final ResourceLocation ID = SkySelConstants.KNIFING_RL;
 
         @Override
         public KnifingRecipe fromJson(ResourceLocation id, JsonObject json) {

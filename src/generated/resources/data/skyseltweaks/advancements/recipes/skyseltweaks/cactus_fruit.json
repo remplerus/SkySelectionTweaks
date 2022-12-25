@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "skyseltweaks:cactus_fruit"
+    ]
+  },
+  "criteria": {
+    "has_knifes": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "skyseltweaks:knifes"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "skyseltweaks:cactus_fruit"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_knifes",
+      "has_the_recipe"
+    ]
+  ]
+}

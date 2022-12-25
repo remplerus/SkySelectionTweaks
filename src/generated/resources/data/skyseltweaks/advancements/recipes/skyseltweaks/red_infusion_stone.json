@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "skyseltweaks:red_infusion_stone"
+    ]
+  },
+  "criteria": {
+    "has_red_sandstone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:red_sandstone"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "skyseltweaks:red_infusion_stone"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_red_sandstone",
+      "has_the_recipe"
+    ]
+  ]
+}

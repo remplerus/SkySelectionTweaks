@@ -1,0 +1,18 @@
+{
+  "type": "skyseltweaks:infusing",
+  "ingredients": [
+    {
+      "item": "skyseltweaks:cactus_fruit"
+    }
+  ],
+  "inputCount": 4,
+  "blockInput": [
+    {
+      "tag": "forge:sand"
+    }
+  ],
+  "health": 2,
+  "output": {
+    "item": "minecraft:dirt"
+  }
+}

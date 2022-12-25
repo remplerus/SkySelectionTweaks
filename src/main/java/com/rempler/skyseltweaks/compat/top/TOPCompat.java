@@ -1,6 +1,6 @@
 package com.rempler.skyseltweaks.compat.top;
 
-import com.rempler.skyseltweaks.SkySelTweaks;
+import com.rempler.skyseltweaks.common.utils.SkySelConstants;
 import mcjty.theoneprobe.api.IProbeHitData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.IProbeInfoProvider;
@@ -30,7 +30,7 @@ public class TOPCompat {
             iTheOneProbe.registerProvider(new IProbeInfoProvider() {
                 @Override
                 public ResourceLocation getID() {
-                    return new ResourceLocation(SkySelTweaks.MOD_ID, "default");
+                    return new ResourceLocation(SkySelConstants.MODID, "default");
                 }
 
                 @Override

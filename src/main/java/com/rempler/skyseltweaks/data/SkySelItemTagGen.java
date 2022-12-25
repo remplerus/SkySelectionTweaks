@@ -2,14 +2,14 @@ package com.rempler.skyseltweaks.data;
 
 import com.rempler.skyseltweaks.SkySelTweaks;
 import com.rempler.skyseltweaks.common.init.SkySelItems;
+import com.rempler.skyseltweaks.common.utils.SkySelConstants;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 public class SkySelItemTagGen extends ItemTagsProvider {
     public SkySelItemTagGen(DataGenerator generator, ExistingFileHelper existingFileHelper) {
-        super(generator, new SkySelBlockTagGen(generator, existingFileHelper), SkySelTweaks.MOD_ID, existingFileHelper);
+        super(generator, new SkySelBlockTagGen(generator, existingFileHelper), SkySelConstants.MODID, existingFileHelper);
     }
 
     @Override
